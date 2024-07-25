@@ -1,10 +1,7 @@
-import Image from "next/image";
-
-
 export default function Home() {
   return (
-    <div>
-      <p>This is the home page of the project</p>
+    <div className="bg-gray-100">
+      {/* <p>hello</p> */}
     </div>
   );
 }
