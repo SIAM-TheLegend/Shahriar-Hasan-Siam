@@ -42,7 +42,7 @@ body:first-child, body:last-child {
 /*-------------------- Contact page --------------------*/
 /*--------------------------------------------------------*/
 .contact-message-to-me fieldset {
-  @apply my-8 border-2 border-gray-400 rounded-xl;
+  @apply my-8 border-2 border-gray-400 rounded-2xl;
 }
 .contact-message-to-me input {
   @apply mb-3 pl-4 block h-8 w-full rounded-xl bg-transparent outline-none;
