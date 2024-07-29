@@ -51,6 +51,10 @@ body:first-child, body:last-child {
   @apply mb-3 pl-4 block h-8 w-full rounded-xl bg-transparent outline-none;
 }
 
+.contact-talk-to-me > div > svg {
+  @apply mx-auto my-1 size-7;
+  
+}
 .talk-to-me-svg {
   @apply size-9 pl-2 inline fill-none group-hover:translate-x-2 duration-300;
 }
