@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/contexts/ThemeContext";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
+import { Header, Footer, PageWrapper } from "@/components/layout";
 
 // Load Inter font with Latin subset
 const inter = Inter({ subsets: ["latin"], display: "swap" });
@@ -37,7 +36,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={inter.className}>
         <ThemeProvider>
           <Header />
-          <main className="min-h-screen pt-20">{children}</main>
+          <main className="min-h-screen pt-20">
+            <PageWrapper>{children}</PageWrapper>
+          </main>
           <Footer />
         </ThemeProvider>
       </body>
