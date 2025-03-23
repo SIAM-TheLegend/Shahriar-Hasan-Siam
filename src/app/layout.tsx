@@ -9,6 +9,7 @@ import { Footer } from "@/components/layout/Footer";
 const inter = Inter({ subsets: ["latin"], display: "swap" });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || "https://shahriar-hasan-siam.vercel.app"),
   title: "Shahriar Hasan Siam | Portfolio",
   description: "Personal portfolio showcasing my projects, skills, and experience as a developer",
   keywords: ["portfolio", "web developer", "frontend", "react", "next.js"],
