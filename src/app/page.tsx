@@ -2,7 +2,7 @@ import { FadeIn, SlideIn } from "@/components/ui/animations";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { Heading, Paragraph, Lead } from "@/components/ui/typography";
-import { HeroSection } from "@/components/sections";
+import { HeroSection, AboutSection } from "@/components/sections";
 
 export default function Home() {
   return (
@@ -11,14 +11,7 @@ export default function Home() {
       <HeroSection />
 
       {/* About Section */}
-      <Section id="about" background="muted">
-        <SlideIn className="flex flex-col items-center justify-center text-center">
-          <Heading as="h2">About Me</Heading>
-          <Paragraph className="mt-6 max-w-2xl" muted>
-            This is a placeholder for the about section content. Here we will add information about the professional background, experience, and other relevant details.
-          </Paragraph>
-        </SlideIn>
-      </Section>
+      <AboutSection />
 
       {/* Projects Section */}
       <Section id="projects">
