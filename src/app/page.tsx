@@ -2,7 +2,7 @@ import { FadeIn, SlideIn } from "@/components/ui/animations";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { Heading, Paragraph, Lead } from "@/components/ui/typography";
-import { HeroSection, AboutSection, ProjectsSection, SkillsSection } from "@/components/sections";
+import { HeroSection, AboutSection, ProjectsSection, SkillsSection, TestimonialsSection } from "@/components/sections";
 
 export default function Home() {
   return (
@@ -18,6 +18,9 @@ export default function Home() {
 
       {/* Skills Section */}
       <SkillsSection />
+
+      {/* Testimonials Section */}
+      <TestimonialsSection />
 
       {/* Contact Section */}
       <Section id="contact">
