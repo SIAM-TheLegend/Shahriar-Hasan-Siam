@@ -12,13 +12,22 @@ export const timings = {
   medium: 0.5,
   slow: 0.7,
   stagger: 0.1,
+  entryStagger: 0.05, // Added for entry animations
 } as const;
 
 export const easings = {
   smooth: [0.4, 0, 0.2, 1], // Smooth easing for most animations
   bounce: [0.68, -0.6, 0.32, 1.6], // Bouncy easing for playful elements
   spring: [0.43, 0.13, 0.23, 0.96], // Natural spring effect
+  entry: [0.25, 0.1, 0.25, 1.0], // Optimized for entry animations
 } as const;
+
+// Distance values for translations
+export const distances = {
+  small: 10,
+  medium: 30,
+  large: 50,
+};
 
 // Fade animation variants
 export const fadeVariants: Variants = {
@@ -38,19 +47,37 @@ export const fadeVariants: Variants = {
   },
 };
 
+// Enhanced fade variant with more options
+export const createFadeVariant = (delay: number = 0, duration: number = timings.medium): Variants => ({
+  hidden: {
+    opacity: 0,
+    transition: {
+      duration,
+      ease: easings.smooth,
+    },
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration,
+      ease: easings.smooth,
+      delay,
+    },
+  },
+});
+
 // Slide animation variants with direction support
-export const slideVariants = (direction: "up" | "down" | "left" | "right"): Variants => {
-  const offset = 50; // Base offset in pixels
+export const slideVariants = (direction: "up" | "down" | "left" | "right", distance: number = distances.medium): Variants => {
   const getOffset = () => {
     switch (direction) {
       case "up":
-        return { y: offset };
+        return { y: distance };
       case "down":
-        return { y: -offset };
+        return { y: -distance };
       case "left":
-        return { x: offset };
+        return { x: distance };
       case "right":
-        return { x: -offset };
+        return { x: -distance };
     }
   };
 
@@ -60,7 +87,7 @@ export const slideVariants = (direction: "up" | "down" | "left" | "right"): Vari
       ...getOffset(),
       transition: {
         duration: timings.medium,
-        ease: easings.smooth,
+        ease: easings.entry,
       },
     },
     visible: {
@@ -69,7 +96,7 @@ export const slideVariants = (direction: "up" | "down" | "left" | "right"): Vari
       y: 0,
       transition: {
         duration: timings.medium,
-        ease: easings.smooth,
+        ease: easings.entry,
       },
     },
   };
@@ -105,6 +132,41 @@ export const staggerContainerVariants: Variants = {
     transition: {
       staggerChildren: timings.stagger,
       ease: easings.smooth,
+      delayChildren: 0.1, // Small delay before starting children animations
+    },
+  },
+};
+
+// Optimized stagger container for list/grid items
+export const staggerListVariants: Variants = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: timings.entryStagger,
+      ease: easings.entry,
+    },
+  },
+};
+
+// Item variant for staggered lists
+export const listItemVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 20,
+    transition: {
+      duration: timings.fast,
+      ease: easings.entry,
+    },
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: timings.fast,
+      ease: easings.entry,
     },
   },
 };
@@ -116,7 +178,7 @@ export const textRevealVariants: Variants = {
     y: 20,
     transition: {
       duration: timings.fast,
-      ease: easings.smooth,
+      ease: easings.entry,
     },
   },
   visible: {
@@ -124,7 +186,7 @@ export const textRevealVariants: Variants = {
     y: 0,
     transition: {
       duration: timings.fast,
-      ease: easings.smooth,
+      ease: easings.entry,
     },
   },
 };
