@@ -2,7 +2,7 @@ import { FadeIn, SlideIn } from "@/components/ui/animations";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { Heading, Paragraph, Lead } from "@/components/ui/typography";
-import { HeroSection, AboutSection } from "@/components/sections";
+import { HeroSection, AboutSection, ProjectsSection, SkillsSection } from "@/components/sections";
 
 export default function Home() {
   return (
@@ -14,24 +14,10 @@ export default function Home() {
       <AboutSection />
 
       {/* Projects Section */}
-      <Section id="projects">
-        <SlideIn className="flex flex-col items-center justify-center text-center">
-          <Heading as="h2">My Projects</Heading>
-          <Paragraph className="mt-6 max-w-2xl" muted>
-            This is a placeholder for the projects section. Here we will showcase various projects with details, images, and links.
-          </Paragraph>
-        </SlideIn>
-      </Section>
+      <ProjectsSection />
 
       {/* Skills Section */}
-      <Section id="skills" background="muted">
-        <SlideIn className="flex flex-col items-center justify-center text-center">
-          <Heading as="h2">My Skills</Heading>
-          <Paragraph className="mt-6 max-w-2xl" muted>
-            This is a placeholder for the skills section. Here we will display technical skills, tools, and technologies with visual representations.
-          </Paragraph>
-        </SlideIn>
-      </Section>
+      <SkillsSection />
 
       {/* Contact Section */}
       <Section id="contact">
