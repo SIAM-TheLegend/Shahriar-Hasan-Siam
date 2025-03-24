@@ -1,56 +1,35 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
+import { HTMLMotionProps, motion } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import React from "react";
+import { fadeVariants } from "./variants";
 
-interface FadeInProps {
-  children: React.ReactNode;
-  delay?: number;
-  duration?: number;
-  className?: string;
-  direction?: "up" | "down" | "left" | "right" | "none";
-  distance?: number;
-  once?: boolean;
+interface FadeInProps extends HTMLMotionProps<"div"> {
+  /**
+   * The threshold value for the intersection observer (0-1)
+   * Determines how much of the element needs to be visible to trigger animation
+   */
   threshold?: number;
+  /**
+   * The margin around the root element for intersection observer
+   * Can be used to trigger animation before element is in view
+   */
+  rootMargin?: string;
+  /**
+   * Whether to animate on mount instead of scroll
+   */
+  animateOnMount?: boolean;
 }
 
 /**
- * FadeIn component for smooth animation entry of elements as they scroll into view
+ * A component that fades in its children when scrolled into view
+ * Uses consistent animation timing and easing from variants
  */
-export function FadeIn({ children, delay = 0, duration = 0.5, className = "", direction = "up", distance = 50, threshold = 0.1 }: FadeInProps) {
-  const { ref, isInView } = useScrollAnimation<HTMLDivElement>(threshold);
-
-  // Define the animation variants based on direction
-  const getVariants = (): Variants => {
-    const directionOffset = {
-      up: { y: distance },
-      down: { y: -distance },
-      left: { x: distance },
-      right: { x: -distance },
-      none: {},
-    };
-
-    return {
-      hidden: {
-        opacity: 0,
-        ...directionOffset[direction],
-      },
-      visible: {
-        opacity: 1,
-        y: 0,
-        x: 0,
-        transition: {
-          duration,
-          delay,
-          ease: "easeOut",
-        },
-      },
-    };
-  };
+export function FadeIn({ children, threshold = 0.1, rootMargin = "0px", animateOnMount = false, ...props }: FadeInProps) {
+  const { ref, isInView } = useScrollAnimation<HTMLDivElement>(threshold, rootMargin);
 
   return (
-    <motion.div ref={ref} initial="hidden" animate={isInView ? "visible" : "hidden"} variants={getVariants()} className={className}>
+    <motion.div ref={ref} initial="hidden" animate={animateOnMount || isInView ? "visible" : "hidden"} variants={fadeVariants} {...props}>
       {children}
     </motion.div>
   );

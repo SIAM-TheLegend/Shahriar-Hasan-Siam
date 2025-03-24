@@ -1,6 +1,7 @@
 "use client";
 
-export { FadeIn } from "./FadeIn";
-export { SlideIn } from "./SlideIn";
-export { Stagger } from "./Stagger";
-export { AnimatedText } from "./AnimatedText";
+export * from "./FadeIn";
+export * from "./SlideIn";
+export * from "./Stagger";
+export * from "./AnimatedText";
+export * from "./variants";
