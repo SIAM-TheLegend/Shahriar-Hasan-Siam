@@ -3,6 +3,7 @@
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { ReactNode, useEffect, useState } from "react";
+import { pageTransitionVariants } from "@/components/ui/animations/variants";
 
 interface PageWrapperProps {
   children: ReactNode;
@@ -11,6 +12,7 @@ interface PageWrapperProps {
 /**
  * PageWrapper component for handling page transitions
  * Wraps page content with animated transitions using Framer Motion
+ * Uses standardized animation timing and easing from variants
  */
 export function PageWrapper({ children }: PageWrapperProps) {
   const pathname = usePathname();
@@ -40,30 +42,14 @@ export function PageWrapper({ children }: PageWrapperProps) {
     return () => clearTimeout(timer);
   }, [pathname]);
 
-  // Set up animation variants
-  const variants = {
-    hidden: {
-      opacity: 0,
-      y: prefersReducedMotion ? 0 : 20,
-    },
-    enter: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: prefersReducedMotion ? 0.2 : 0.4,
-        ease: "easeInOut",
-        when: "beforeChildren",
-      },
-    },
-    exit: {
-      opacity: 0,
-      y: prefersReducedMotion ? 0 : 20,
-      transition: {
-        duration: prefersReducedMotion ? 0.1 : 0.3,
-        ease: "easeInOut",
-      },
-    },
-  };
+  // If reduced motion is preferred, use simplified transitions
+  const variants = prefersReducedMotion
+    ? {
+        hidden: { opacity: 0 },
+        visible: { opacity: 1, transition: { duration: 0.2 } },
+        exit: { opacity: 0, transition: { duration: 0.1 } },
+      }
+    : pageTransitionVariants;
 
   return (
     <AnimatePresence mode="wait">
@@ -72,7 +58,7 @@ export function PageWrapper({ children }: PageWrapperProps) {
           <div className="h-8 w-8 animate-spin rounded-full border-b-2 border-primary"></div>
         </motion.div>
       ) : (
-        <motion.div key={pathname} initial="hidden" animate="enter" exit="exit" variants={variants} className="w-full">
+        <motion.div key={pathname} initial="hidden" animate="visible" exit="exit" variants={variants} className="w-full">
           {children}
         </motion.div>
       )}
