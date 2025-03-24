@@ -2,17 +2,13 @@ import { FadeIn, SlideIn } from "@/components/ui/animations";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { Heading, Paragraph, Lead } from "@/components/ui/typography";
+import { HeroSection } from "@/components/sections";
 
 export default function Home() {
   return (
     <>
       {/* Hero Section */}
-      <Section id="home" fullHeight>
-        <FadeIn className="flex flex-col items-center justify-center text-center">
-          <Heading as="h1">Welcome to My Portfolio</Heading>
-          <Lead className="mt-6 max-w-2xl">This is a placeholder for the homepage content. We&apos;ll be implementing proper sections according to the development documentation.</Lead>
-        </FadeIn>
-      </Section>
+      <HeroSection />
 
       {/* About Section */}
       <Section id="about" background="muted">
