@@ -1,6 +1,7 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 import { Container } from "./container";
+import { SectionTransition } from "./animations/SectionTransition";
 
 interface SectionProps extends React.HTMLAttributes<HTMLElement> {
   /**
@@ -40,6 +41,29 @@ interface SectionProps extends React.HTMLAttributes<HTMLElement> {
    * @default true
    */
   withContainer?: boolean;
+
+  /**
+   * Whether to use transition animations when navigating to this section
+   * @default false
+   */
+  withTransition?: boolean;
+
+  /**
+   * Whether to use parallax effect for the background during transitions
+   * @default false
+   */
+  withParallax?: boolean;
+
+  /**
+   * Current active section ID (for triggering transitions)
+   */
+  activeSection?: string;
+
+  /**
+   * Animation threshold - percentage of element visible to trigger
+   * @default 0.1
+   */
+  threshold?: number;
 }
 
 /**
@@ -48,10 +72,10 @@ interface SectionProps extends React.HTMLAttributes<HTMLElement> {
  * Provides consistent padding, background options, and container integration
  * for standardized page sections.
  */
-export function Section({ id, children, className, fullHeight = false, padding = "default", background = "default", containerProps, withContainer = true, ...props }: SectionProps) {
+export function Section({ id, children, className, fullHeight = false, padding = "default", background = "default", containerProps, withContainer = true, withTransition = false, withParallax = false, activeSection, threshold = 0.1, ...props }: SectionProps) {
   const content = withContainer ? <Container {...containerProps}>{children}</Container> : children;
 
-  return (
+  const sectionContent = (
     <section
       id={id}
       className={cn(
@@ -85,4 +109,16 @@ export function Section({ id, children, className, fullHeight = false, padding =
       {content}
     </section>
   );
+
+  // If transitions are enabled and we have an ID, wrap in SectionTransition
+  if (withTransition && id) {
+    return (
+      <SectionTransition id={id} withParallax={withParallax} threshold={threshold} triggerOnActive={!!activeSection} activeSection={activeSection}>
+        {sectionContent}
+      </SectionTransition>
+    );
+  }
+
+  // Otherwise return the section without transitions
+  return sectionContent;
 }

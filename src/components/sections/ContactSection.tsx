@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { cn } from "@/lib/utils";
+import { SectionProps } from "./SectionProps";
 
 // Form schema with Zod validation
 const formSchema = z.object({
@@ -238,11 +239,11 @@ const ContactForm = () => {
  * Main ContactSection component
  * Displays a contact form with animations and validation
  */
-export function ContactSection() {
+export function ContactSection({ withTransition = false, withParallax = false, activeSection, threshold = 0.1 }: SectionProps) {
   const { ref, isInView } = useScrollAnimation<HTMLDivElement>();
 
   return (
-    <Section id="contact" className="overflow-hidden">
+    <Section id="contact" withTransition={withTransition} withParallax={withParallax} activeSection={activeSection} threshold={threshold}>
       <Container>
         <div className="flex flex-col gap-20">
           {/* Section Header */}

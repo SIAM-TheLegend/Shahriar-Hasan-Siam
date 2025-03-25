@@ -10,6 +10,7 @@ import { AnimatedText, FadeIn, SlideIn, Stagger } from "@/components/ui/animatio
 import { skillsData } from "@/constants/skills";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { Info } from "lucide-react";
+import { SectionProps } from "./SectionProps";
 
 /**
  * SkillBar component for displaying individual skill with progress bar
@@ -106,7 +107,7 @@ const TechIcon = ({ name, icon, color = "#6366f1", delay }: TechIconProps) => {
  * Displays animated skill bars and technology icons
  * Features scroll-linked progress animation and interactive tooltips
  */
-export function SkillsSection() {
+export function SkillsSection({ withTransition = false, withParallax = false, activeSection, threshold = 0.1 }: SectionProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -114,7 +115,7 @@ export function SkillsSection() {
   });
 
   return (
-    <Section id="skills" background="muted">
+    <Section id="skills" background="muted" withTransition={withTransition} withParallax={withParallax} activeSection={activeSection} threshold={threshold}>
       <div ref={sectionRef} className="mb-16 text-center">
         <SlideIn direction="down">
           <AnimatedText text="Skills & Expertise" as="h2" animationType="word" className="mb-4" textClassName="text-3xl md:text-4xl font-bold" />

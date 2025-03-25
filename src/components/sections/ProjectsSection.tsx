@@ -13,6 +13,7 @@ import { Button } from "../ui/button";
 import { Card } from "../ui/card";
 import { FadeIn, SlideIn, Stagger, AnimatedText } from "../ui/animations";
 import { Project, ProjectTag, projects, projectTags } from "@/constants/projects";
+import { SectionProps } from "./SectionProps";
 
 // Animation variants for the project cards
 const cardVariants = {
@@ -42,7 +43,7 @@ const tagVariants = {
   }),
 };
 
-export function ProjectsSection() {
+export function ProjectsSection({ withTransition = false, withParallax = false, activeSection, threshold = 0.1 }: SectionProps) {
   const [selectedTag, setSelectedTag] = useState<ProjectTag | "All">("All");
   const [filteredProjects, setFilteredProjects] = useState<Project[]>(projects);
   const [isDetailView, setIsDetailView] = useState(false);
@@ -70,7 +71,7 @@ export function ProjectsSection() {
   };
 
   return (
-    <Section id="projects">
+    <Section id="projects" withTransition={withTransition} withParallax={withParallax} activeSection={activeSection} threshold={threshold}>
       <Container className="space-y-10">
         <SlideIn>
           <div className="flex flex-col items-center justify-center text-center space-y-4">

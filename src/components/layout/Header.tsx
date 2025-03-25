@@ -7,7 +7,7 @@ import { Menu, X } from "lucide-react";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { useActiveSection } from "@/hooks/useActiveSection";
 import { useKeyboardNavigation } from "@/hooks/useKeyboardNavigation";
-import { scrollToSection } from "@/utils/scrollUtils";
+import { transitionToSection } from "@/utils/transitionUtils";
 
 const navLinks = [
   { href: "home", label: "Home" },
@@ -23,6 +23,7 @@ const navLinks = [
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   // Use the activeSection hook to track which section is currently in view
   const activeSection = useActiveSection(navLinks.map((link) => link.href));
@@ -61,15 +62,23 @@ export function Header() {
   // Handle navigation link click
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
     e.preventDefault();
-    scrollToSection(sectionId);
 
-    // Update URL hash for browser history
-    window.history.pushState(null, "", `#${sectionId}`);
+    // Don't retrigger if already transitioning
+    if (isTransitioning) return;
 
-    // Close mobile menu if open
-    if (isMobileMenuOpen) {
-      setIsMobileMenuOpen(false);
-    }
+    // Use enhanced transition function
+    setIsTransitioning(true);
+    transitionToSection(sectionId, {
+      onStart: () => {
+        // Close mobile menu if open
+        if (isMobileMenuOpen) {
+          setIsMobileMenuOpen(false);
+        }
+      },
+      onComplete: () => {
+        setIsTransitioning(false);
+      },
+    });
   };
 
   // Mobile menu animation variants
@@ -113,7 +122,7 @@ export function Header() {
             e.preventDefault();
             const mainContent = document.getElementById("home");
             if (mainContent) mainContent.focus();
-            scrollToSection("home");
+            handleNavClick(e, "home");
           }}
         >
           Skip to content

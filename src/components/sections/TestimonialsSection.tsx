@@ -11,6 +11,7 @@ import { testimonials } from "@/constants/testimonials";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { SectionProps } from "./SectionProps";
 
 interface TestimonialCardProps {
   testimonial: (typeof testimonials)[0];
@@ -110,7 +111,7 @@ const DotsIndicator = ({ count, active, onSelect }: DotsIndicatorProps) => {
  * TestimonialsSection component
  * Displays animated testimonial carousel with navigation controls
  */
-export function TestimonialsSection() {
+export function TestimonialsSection({ withTransition = false, withParallax = false, activeSection, threshold = 0.1 }: SectionProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [autoplayEnabled, setAutoplayEnabled] = useState(true);
   const autoplayTimerRef = useRef<NodeJS.Timeout | null>(null);
@@ -152,7 +153,7 @@ export function TestimonialsSection() {
   };
 
   return (
-    <Section id="testimonials">
+    <Section id="testimonials" withTransition={withTransition} withParallax={withParallax} activeSection={activeSection} threshold={threshold}>
       <div className="mb-16 text-center">
         <SlideIn direction="down">
           <AnimatedText text="Client Testimonials" as="h2" animationType="word" className="mb-4" textClassName="text-3xl md:text-4xl font-bold" />

@@ -252,3 +252,60 @@ export const pageTransitionVariants: Variants = {
     },
   },
 };
+
+// Section transition variants for smooth transitions between sections
+export const sectionTransitionVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 30,
+    transition: {
+      duration: timings.medium,
+      ease: easings.exit,
+    },
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: timings.medium,
+      ease: easings.entry,
+      when: "beforeChildren",
+    },
+  },
+  exit: {
+    opacity: 0,
+    y: -30,
+    transition: {
+      duration: timings.medium,
+      ease: easings.exit,
+    },
+  },
+};
+
+// Background parallax effect for section transitions
+export const sectionParallaxVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    scale: 1.05,
+    transition: {
+      duration: timings.medium,
+      ease: easings.smooth,
+    },
+  },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: timings.slow,
+      ease: easings.decelerate,
+    },
+  },
+  exit: {
+    opacity: 0,
+    scale: 0.95,
+    transition: {
+      duration: timings.medium,
+      ease: easings.accelerate,
+    },
+  },
+};

@@ -9,6 +9,7 @@ import { Section } from "@/components/ui/section";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { Heading, Paragraph } from "@/components/ui/typography";
+import { SectionProps } from "./SectionProps";
 
 // Timeline data representing professional history
 const timelineData = [
@@ -43,12 +44,12 @@ const timelineData = [
  * Displays personal introduction, professional timeline, and downloadable resume
  * Features animated text reveals and interactive timeline entries
  */
-export function AboutSection() {
+export function AboutSection({ withTransition = false, withParallax = false, activeSection, threshold = 0.1 }: SectionProps) {
   const timelineRef = useRef(null);
   const isTimelineInView = useInView(timelineRef, { once: true, amount: 0.2 });
 
   return (
-    <Section id="about" background="muted">
+    <Section id="about" background="muted" withTransition={withTransition} withParallax={withParallax} activeSection={activeSection} threshold={threshold}>
       <Container className="space-y-16">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto">

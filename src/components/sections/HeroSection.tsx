@@ -9,13 +9,14 @@ import { AnimatedText, FadeIn, SlideIn } from "@/components/ui/animations";
 import { Section } from "@/components/ui/section";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
+import { SectionProps } from "./SectionProps";
 
 /**
  * HeroSection component
  * Displays an animated hero section with interactive background elements
  * Features text reveal animations, profile image, and mouse-responsive background
  */
-export function HeroSection() {
+export function HeroSection({ withTransition = false, withParallax = false, activeSection, threshold = 0.1 }: SectionProps) {
   // Mouse movement tracking for parallax effect
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -63,7 +64,7 @@ export function HeroSection() {
   }, []);
 
   return (
-    <Section id="home" fullHeight>
+    <Section id="home" fullHeight withTransition={withTransition} withParallax={withParallax} activeSection={activeSection} threshold={threshold}>
       <Container>
         <div ref={containerRef} className="relative flex flex-col items-center justify-center min-h-[calc(100vh-5rem)] py-12" onMouseMove={!prefersReducedMotion ? handleMouseMove : undefined} onMouseLeave={!prefersReducedMotion ? handleMouseLeave : undefined}>
           {/* Background Elements - Responsive to mouse movement */}
