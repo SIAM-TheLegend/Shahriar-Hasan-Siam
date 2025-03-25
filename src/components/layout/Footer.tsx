@@ -4,7 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Github, Linkedin, Twitter, Mail, ExternalLink } from "lucide-react";
 import { FadeIn } from "@/components/ui/animations";
-import { Stagger } from "@/components/ui/animations";
+import { Stagger, StaggerItem } from "@/components/ui/animations";
 
 // Footer navigation links
 const footerNavLinks = [
@@ -54,7 +54,7 @@ export function Footer() {
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Quick Links</h3>
             <nav className="flex flex-col space-y-2">
-              <Stagger staggerDelay={0.05} direction="up" distance={10}>
+              <Stagger delay={0.05}>
                 {footerNavLinks.map((link) => (
                   <Link key={link.href} href={link.href} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                     {link.label}
@@ -68,7 +68,7 @@ export function Footer() {
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Connect</h3>
             <div className="flex space-x-4">
-              <Stagger direction="up" staggerDelay={0.05} className="flex space-x-4">
+              <Stagger delay={0.05} className="flex space-x-4">
                 {socialLinks.map((social) => {
                   const Icon = social.icon;
                   return (

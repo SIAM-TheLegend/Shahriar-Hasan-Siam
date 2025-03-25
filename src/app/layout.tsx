@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { Header, Footer, PageWrapper } from "@/components/layout";
 import { LoadingScreen } from "@/components/ui/LoadingScreen";
+import { BackgroundAnimation } from "@/components/ui/animations";
 
 // Load Inter font with Latin subset
 const inter = Inter({ subsets: ["latin"], display: "swap" });
@@ -36,6 +37,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <ThemeProvider>
+          <BackgroundAnimation particleCount={10} highPerformance={false} />
           <LoadingScreen />
           <Header />
           <main className="min-h-screen pt-20">

@@ -7,3 +7,6 @@ export * from "./StaggerItem";
 export * from "./AnimatedText";
 export * from "./variants";
 export * from "./SectionTransition";
+export * from "./BackgroundAnimation";
+export * from "./ParallaxEffect";
+export * from "./LoopingAnimation";
