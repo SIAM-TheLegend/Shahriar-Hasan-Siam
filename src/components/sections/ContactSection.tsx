@@ -17,6 +17,7 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { cn } from "@/lib/utils";
 import { SectionProps } from "./SectionProps";
+import { AnimatedMap } from "@/components/ui/map";
 
 // Form schema with Zod validation
 const formSchema = z.object({
@@ -39,7 +40,7 @@ const socialLinks = [
 const contactInfo = [
   { icon: Mail, label: "Email", value: "hello@example.com", href: "mailto:hello@example.com" },
   { icon: Phone, label: "Phone", value: "+1 (555) 123-4567", href: "tel:+15551234567" },
-  { icon: MapPin, label: "Location", value: "New York, NY", href: "https://maps.google.com/?q=New+York,+NY" },
+  { icon: MapPin, label: "Location", value: "New York, NY", href: "https://maps.google.com/?q=New+York,+NY", coordinates: [40.7128, -74.006] as [number, number] },
 ];
 
 /**
@@ -249,7 +250,7 @@ const ContactForm = () => {
  * Main ContactSection component
  * Displays a contact form with animations and validation
  */
-export function ContactSection({ withTransition = false, withParallax = false, activeSection, threshold = 0.1 }: SectionProps) {
+export function ContactSection({ withTransition = false, withParallax = false, activeSection, threshold = 0.1, showMap = true }: SectionProps & { showMap?: boolean }) {
   const { ref, isInView } = useScrollAnimation<HTMLDivElement>();
 
   return (
@@ -291,6 +292,16 @@ export function ContactSection({ withTransition = false, withParallax = false, a
                     ))}
                   </div>
                 </div>
+
+                {/* Optional Map */}
+                {showMap && contactInfo[2].coordinates && (
+                  <div className="space-y-6">
+                    <Heading as="h3" className="text-xl font-semibold">
+                      Find Me Here
+                    </Heading>
+                    <AnimatedMap position={contactInfo[2].coordinates} popupText={contactInfo[2].value} delay={0.4} />
+                  </div>
+                )}
               </Stagger>
             </div>
 
