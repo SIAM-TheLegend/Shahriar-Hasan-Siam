@@ -9,7 +9,7 @@ import { Send, Mail, Phone, MapPin, Linkedin, Github, Twitter } from "lucide-rea
 import { Heading, Paragraph, Lead } from "@/components/ui/typography";
 import { Section } from "@/components/ui/section";
 import { Container } from "@/components/ui/container";
-import { AnimatedText, FadeIn, SlideIn, Stagger } from "@/components/ui/animations";
+import { AnimatedText, FadeIn, SlideIn, Stagger, StaggerItem } from "@/components/ui/animations";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
@@ -127,107 +127,117 @@ const ContactForm = () => {
       <div className="bg-card rounded-xl border border-border p-6 shadow-lg">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Name</FormLabel>
-                    <FormControl>
-                      <motion.div whileFocus={{ scale: 1.01 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
-                        <Input placeholder="Your name" {...field} />
+            <Stagger list={true} className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <StaggerItem variant="fadeUp" index={0}>
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Name</FormLabel>
+                        <FormControl>
+                          <motion.div whileFocus={{ scale: 1.01 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
+                            <Input placeholder="Your name" {...field} />
+                          </motion.div>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </StaggerItem>
+
+                <StaggerItem variant="fadeUp" index={1}>
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Email</FormLabel>
+                        <FormControl>
+                          <motion.div whileFocus={{ scale: 1.01 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
+                            <Input placeholder="your.email@example.com" type="email" {...field} />
+                          </motion.div>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </StaggerItem>
+              </div>
+
+              <StaggerItem variant="fadeUp" index={2}>
+                <FormField
+                  control={form.control}
+                  name="subject"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Subject</FormLabel>
+                      <FormControl>
+                        <motion.div whileFocus={{ scale: 1.01 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
+                          <Input placeholder="What is this regarding?" {...field} />
+                        </motion.div>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </StaggerItem>
+
+              <StaggerItem variant="fadeUp" index={3}>
+                <FormField
+                  control={form.control}
+                  name="message"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Message</FormLabel>
+                      <FormControl>
+                        <motion.div whileFocus={{ scale: 1.01 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
+                          <Textarea placeholder="Please include all relevant details..." className="min-h-[120px]" {...field} />
+                        </motion.div>
+                      </FormControl>
+                      <FormDescription>Your message will be sent directly to my inbox. I typically respond within 24-48 hours.</FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </StaggerItem>
+
+              <StaggerItem variant="fadeUp" index={4}>
+                <Button type="submit" className="w-full" disabled={isSubmitting} variant={isSuccess ? "secondary" : isError ? "destructive" : "default"}>
+                  {isSubmitting ? (
+                    <span className="flex items-center gap-2">
+                      <motion.div animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity, ease: "linear" }}>
+                        <Send className="w-4 h-4" />
                       </motion.div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <motion.div whileFocus={{ scale: 1.01 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
-                        <Input placeholder="your.email@example.com" type="email" {...field} />
-                      </motion.div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-
-            <FormField
-              control={form.control}
-              name="subject"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Subject</FormLabel>
-                  <FormControl>
-                    <motion.div whileFocus={{ scale: 1.01 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
-                      <Input placeholder="What is this regarding?" {...field} />
-                    </motion.div>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="message"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Message</FormLabel>
-                  <FormControl>
-                    <motion.div whileFocus={{ scale: 1.01 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
-                      <Textarea placeholder="Please include all relevant details..." className="min-h-[120px]" {...field} />
-                    </motion.div>
-                  </FormControl>
-                  <FormDescription>Your message will be sent directly to my inbox. I typically respond within 24-48 hours.</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
-              <Button type="submit" className="w-full" disabled={isSubmitting} variant={isSuccess ? "secondary" : isError ? "destructive" : "default"}>
-                {isSubmitting ? (
-                  <span className="flex items-center gap-2">
-                    <motion.div animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity, ease: "linear" }}>
+                      Sending...
+                    </span>
+                  ) : isSuccess ? (
+                    <span className="flex items-center gap-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-1">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                      </svg>
+                      Message Sent
+                    </span>
+                  ) : isError ? (
+                    <span className="flex items-center gap-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-1">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                      </svg>
+                      Error Sending
+                    </span>
+                  ) : (
+                    <span className="flex items-center gap-2">
                       <Send className="w-4 h-4" />
-                    </motion.div>
-                    Sending...
-                  </span>
-                ) : isSuccess ? (
-                  <span className="flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-1">
-                      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                      <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                    </svg>
-                    Message Sent
-                  </span>
-                ) : isError ? (
-                  <span className="flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-1">
-                      <circle cx="12" cy="12" r="10"></circle>
-                      <line x1="12" y1="8" x2="12" y2="12"></line>
-                      <line x1="12" y1="16" x2="12.01" y2="16"></line>
-                    </svg>
-                    Error - Try Again
-                  </span>
-                ) : (
-                  <span className="flex items-center gap-2">
-                    <Send className="w-4 h-4" />
-                    Send Message
-                  </span>
-                )}
-              </Button>
-            </motion.div>
+                      Send Message
+                    </span>
+                  )}
+                </Button>
+              </StaggerItem>
+            </Stagger>
           </form>
         </Form>
       </div>
@@ -259,7 +269,7 @@ export function ContactSection({ withTransition = false, withParallax = false, a
           <div ref={ref} className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             {/* Contact Info & Social Links */}
             <div className="flex flex-col gap-8">
-              <Stagger staggerDelay={0.1} direction="up">
+              <Stagger delay={0.1}>
                 <div className="space-y-6">
                   <Heading as="h3" className="text-xl font-semibold">
                     Contact Information

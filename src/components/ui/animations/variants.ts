@@ -309,3 +309,88 @@ export const sectionParallaxVariants: Variants = {
     },
   },
 };
+
+// Create stagger grid variants with customizable patterns
+export const staggerGridVariants = (columns: number = 3, pattern: "sequence" | "rows" | "columns" = "sequence"): Variants => {
+  // Base delay for staggered children
+  const baseStagger = timings.entryStagger;
+
+  return {
+    hidden: {
+      opacity: 0,
+    },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: baseStagger,
+        ease: easings.entry,
+        delayChildren: timings.standardDelay * 0.5,
+        // Different staggering strategies based on pattern
+        staggerDirection: pattern === "sequence" ? 1 : pattern === "rows" ? 1 : columns,
+      },
+    },
+  };
+};
+
+// Item variant optimized for grid layouts
+export const gridItemVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 15,
+    scale: 0.95,
+    transition: {
+      duration: timings.fast,
+      ease: easings.exit,
+    },
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: timings.medium,
+      ease: easings.spring,
+    },
+  },
+};
+
+// Helper to create a custom stagger children pattern by index
+// This allows for more complex staggering patterns like diagonal
+export const createStaggerByIndex = (columns: number, pattern: "sequence" | "rows" | "columns" | "diagonal" = "sequence") => {
+  return (i: number) => {
+    // Default sequence is left to right, top to bottom
+    let delay = i * timings.entryStagger;
+
+    // For row-based staggering
+    if (pattern === "rows") {
+      const row = Math.floor(i / columns);
+      const col = i % columns;
+      delay = row * timings.stagger + col * timings.entryStagger;
+    }
+
+    // For column-based staggering
+    if (pattern === "columns") {
+      const row = Math.floor(i / columns);
+      const col = i % columns;
+      delay = col * timings.stagger + row * timings.entryStagger;
+    }
+
+    // For diagonal-based staggering
+    if (pattern === "diagonal") {
+      const row = Math.floor(i / columns);
+      const col = i % columns;
+      delay = (row + col) * timings.entryStagger;
+    }
+
+    return {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: timings.medium,
+        ease: easings.spring,
+        delay: delay,
+      },
+    };
+  };
+};

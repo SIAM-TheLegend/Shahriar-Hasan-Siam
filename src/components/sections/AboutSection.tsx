@@ -4,7 +4,7 @@ import { useRef } from "react";
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { FileDown, ChevronRight } from "lucide-react";
-import { AnimatedText, FadeIn, SlideIn, Stagger } from "@/components/ui/animations";
+import { AnimatedText, FadeIn, SlideIn, Stagger, StaggerItem } from "@/components/ui/animations";
 import { Section } from "@/components/ui/section";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
@@ -63,12 +63,12 @@ export function AboutSection({ withTransition = false, withParallax = false, act
         </div>
 
         {/* About Content - Two Columns */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
           {/* Left Column - Image & Bio */}
           <FadeIn delay={0.2} className="order-2 lg:order-1">
             <div className="relative rounded-lg overflow-hidden border border-border shadow-xl mb-8">
               <div className="aspect-[4/3] relative">
-                <Image src="/images/about-image.jpg" alt="Shahriar Hasan Siam working on web development" fill sizes="(max-width: 768px) 100vw, 50vw" style={{ objectFit: "cover" }} className="transition-all duration-500 hover:scale-105" />
+                <Image src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1472&auto=format&fit=crop&ixlib=rb-4.0.3" alt="Shahriar Hasan Siam working on web development" fill sizes="(max-width: 768px) 100vw, 50vw" style={{ objectFit: "cover" }} className="transition-all duration-500 hover:scale-105" />
               </div>
             </div>
 
@@ -80,44 +80,43 @@ export function AboutSection({ withTransition = false, withParallax = false, act
           </FadeIn>
 
           {/* Right Column - Timeline */}
-          <div className="order-1 lg:order-2" ref={timelineRef}>
+          <div ref={timelineRef} className="order-1 lg:order-2">
             <Heading as="h3" className="text-xl md:text-2xl font-semibold mb-8">
               Professional Journey
             </Heading>
 
-            <div className="relative border-l border-primary/20 pl-8 space-y-8">
-              {timelineData.map((item, index) => (
-                <motion.div
-                  key={item.year}
-                  className="relative"
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={isTimelineInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
-                  transition={{
-                    duration: 0.5,
-                    delay: 0.2 + index * 0.1,
-                    ease: [0.2, 0.65, 0.3, 0.9],
-                  }}
-                >
-                  {/* Timeline point */}
-                  <div className="absolute -left-10 mt-1.5 w-3 h-3 rounded-full bg-primary/80 shadow-glow-sm"></div>
+            <div className="relative border-l border-primary/20 pl-8">
+              <Stagger list={true} className="space-y-8" animateOnMount={false}>
+                {timelineData.map((item, index) => (
+                  <StaggerItem key={item.year} index={index} variant="fadeUp">
+                    {/* Timeline point */}
+                    <div className="absolute -left-10 mt-1.5 w-3 h-3 rounded-full bg-primary/80 shadow-glow-sm"></div>
 
-                  {/* Timeline Year */}
-                  <span className="inline-block px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary mb-2">{item.year}</span>
+                    {/* Timeline Year */}
+                    <span className="inline-block px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary mb-2">{item.year}</span>
 
-                  {/* Timeline Content */}
-                  <div className="p-4 rounded-lg bg-card hover:shadow-md transition-shadow duration-300">
-                    <h4 className="font-semibold text-lg">{item.title}</h4>
-                    <p className="text-primary text-sm mb-2">{item.company}</p>
-                    <p className="text-muted-foreground text-sm">{item.description}</p>
-                  </div>
-                </motion.div>
-              ))}
+                    {/* Timeline Content */}
+                    <motion.div
+                      className="p-4 rounded-lg bg-card hover:shadow-md transition-shadow duration-300"
+                      whileHover={{
+                        y: -5,
+                        x: 5,
+                        transition: { duration: 0.3 },
+                      }}
+                    >
+                      <h4 className="font-semibold text-lg">{item.title}</h4>
+                      <p className="text-primary text-sm mb-2">{item.company}</p>
+                      <p className="text-muted-foreground text-sm">{item.description}</p>
+                    </motion.div>
+                  </StaggerItem>
+                ))}
+              </Stagger>
             </div>
           </div>
         </div>
 
         {/* Resume Download */}
-        <FadeIn delay={0.2} className="text-center">
+        <FadeIn delay={0.3} className="text-center">
           <div className="inline-block p-6 rounded-lg bg-card border border-border shadow-sm hover:shadow-md transition-shadow duration-300">
             <Heading as="h3" className="text-xl mb-3">
               Interested in my experience?

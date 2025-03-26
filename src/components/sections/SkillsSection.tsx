@@ -6,7 +6,7 @@ import { LayoutGroup, useScroll, useMotionValueEvent } from "framer-motion";
 import { Heading, Paragraph, Lead } from "@/components/ui/typography";
 import { Section } from "@/components/ui/section";
 import { Container } from "@/components/ui/container";
-import { AnimatedText, FadeIn, SlideIn, Stagger } from "@/components/ui/animations";
+import { AnimatedText, FadeIn, SlideIn, Stagger, StaggerGrid, StaggerGridItem } from "@/components/ui/animations";
 import { skillsData } from "@/constants/skills";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { Info } from "lucide-react";
@@ -167,7 +167,32 @@ export function SkillsSection({ withTransition = false, withParallax = false, ac
             </Paragraph>
           </SlideIn>
 
-          <div className="grid grid-cols-3 sm:grid-cols-4 gap-6 mt-8">{skillsData.flatMap((category) => category.skills.map((skill, index) => <TechIcon key={skill.name} name={skill.name} icon={skill.icon} color={skill.color} delay={0.2 + index * 0.1} />))}</div>
+          <StaggerGrid columns={4} pattern="sequence" gap={6} className="grid grid-cols-3 sm:grid-cols-4 gap-6 mt-8">
+            {skillsData.flatMap((category, categoryIndex) =>
+              category.skills.map((skill, index) => (
+                <StaggerGridItem key={skill.name}>
+                  <div className="flex flex-col items-center justify-center">
+                    <motion.div
+                      className="w-16 h-16 md:w-20 md:h-20 rounded-xl flex items-center justify-center mb-2 bg-card border border-border"
+                      whileHover={{ scale: 1.05, boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" }}
+                      style={{
+                        backgroundColor: `${skill.color}10`,
+                        borderColor: `${skill.color}30`,
+                      }}
+                    >
+                      <div className="w-8 h-8 md:w-10 md:h-10 relative flex items-center justify-center">
+                        {/* Using a placeholder for icon display */}
+                        <div className="text-2xl md:text-3xl" style={{ color: skill.color }}>
+                          {skill.icon.charAt(0).toUpperCase()}
+                        </div>
+                      </div>
+                    </motion.div>
+                    <span className="text-sm font-medium text-center">{skill.name}</span>
+                  </div>
+                </StaggerGridItem>
+              ))
+            )}
+          </StaggerGrid>
         </div>
       </div>
     </Section>

@@ -6,7 +6,7 @@ import Image from "next/image";
 import { Heading, Paragraph, Lead } from "@/components/ui/typography";
 import { Section } from "@/components/ui/section";
 import { Container } from "@/components/ui/container";
-import { AnimatedText, FadeIn, SlideIn, Stagger } from "@/components/ui/animations";
+import { AnimatedText, FadeIn, SlideIn, Stagger, StaggerItem } from "@/components/ui/animations";
 import { testimonials } from "@/constants/testimonials";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { ChevronLeft, ChevronRight, Star } from "lucide-react";
@@ -110,16 +110,34 @@ const DotsIndicator = ({ count, active, onSelect }: DotsIndicatorProps) => {
 /**
  * TestimonialsSection component
  * Displays animated testimonial carousel with navigation controls
+ * On mobile, shows a staggered list of testimonials for better usability
  */
 export function TestimonialsSection({ withTransition = false, withParallax = false, activeSection, threshold = 0.1 }: SectionProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [autoplayEnabled, setAutoplayEnabled] = useState(true);
   const autoplayTimerRef = useRef<NodeJS.Timeout | null>(null);
   const { ref, isInView } = useScrollAnimation<HTMLDivElement>();
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if device is mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    // Initial check
+    checkMobile();
+
+    // Add resize listener
+    window.addEventListener("resize", checkMobile);
+
+    // Cleanup
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   // Handle automatic testimonial rotation
   useEffect(() => {
-    if (autoplayEnabled && isInView) {
+    if (autoplayEnabled && isInView && !isMobile) {
       autoplayTimerRef.current = setInterval(() => {
         setActiveIndex((prev) => (prev + 1) % testimonials.length);
       }, 6000); // 6 second rotation
@@ -130,7 +148,7 @@ export function TestimonialsSection({ withTransition = false, withParallax = fal
         clearInterval(autoplayTimerRef.current);
       }
     };
-  }, [autoplayEnabled, isInView]);
+  }, [autoplayEnabled, isInView, isMobile]);
 
   // Pause autoplay when user interacts with carousel
   const handleManualNavigation = (newIndex: number) => {
@@ -163,28 +181,74 @@ export function TestimonialsSection({ withTransition = false, withParallax = fal
         </FadeIn>
       </div>
 
-      <div ref={ref} className="relative max-w-4xl mx-auto px-4">
-        {/* Testimonial Cards */}
-        <div className="relative min-h-[320px] md:min-h-[280px] flex items-center justify-center">
-          <AnimatePresence mode="wait">
-            {testimonials.map((testimonial, index) => (
-              <TestimonialCard key={testimonial.id} testimonial={testimonial} isActive={index === activeIndex} activeIndex={activeIndex} />
-            ))}
-          </AnimatePresence>
+      {isMobile ? (
+        // Mobile view - Staggered List of Testimonials
+        <Stagger list={true} className="space-y-6 px-4">
+          {testimonials.map((testimonial, index) => (
+            <StaggerItem key={testimonial.id} index={index} variant="list">
+              <motion.div className="flex flex-col bg-card rounded-xl p-6 shadow-lg border border-border w-full" whileHover={{ y: -5, transition: { duration: 0.3 } }}>
+                {/* Quote Symbol */}
+                <div className="mb-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 48 48" className="text-primary/20">
+                    <path fill="currentColor" d="M14.4 24H8c0-6.627 5.373-12 12-12v4c-4.418 0-8 3.582-8 8h2.4a2.4 2.4 0 0 1 2.4 2.4v7.2a2.4 2.4 0 0 1-2.4 2.4H4.8a2.4 2.4 0 0 1-2.4-2.4v-7.2A2.4 2.4 0 0 1 4.8 24h9.6Zm24 0H32c0-6.627 5.373-12 12-12v4c-4.418 0-8 3.582-8 8h2.4a2.4 2.4 0 0 1 2.4 2.4v7.2a2.4 2.4 0 0 1-2.4 2.4h-9.6a2.4 2.4 0 0 1-2.4-2.4v-7.2a2.4 2.4 0 0 1 2.4-2.4h9.6Z" />
+                  </svg>
+                </div>
+
+                {/* Testimonial Content */}
+                <div className="mb-4">
+                  <Paragraph className="italic text-sm">{testimonial.content}</Paragraph>
+                </div>
+
+                {/* Rating Stars */}
+                {testimonial.rating && (
+                  <div className="flex mb-4">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <Star key={i} className={cn("w-4 h-4", i < testimonial.rating! ? "text-yellow-500 fill-yellow-500" : "text-muted")} />
+                    ))}
+                  </div>
+                )}
+
+                {/* Author Information */}
+                <div className="flex items-center mt-auto">
+                  <div className="relative w-10 h-10 rounded-full overflow-hidden mr-3 border border-border">
+                    <div className="w-full h-full bg-muted flex items-center justify-center text-muted-foreground">{testimonial.avatar ? <Image src={testimonial.avatar} alt={testimonial.name} fill sizes="40px" className="object-cover" /> : testimonial.name.charAt(0)}</div>
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-sm">{testimonial.name}</h4>
+                    <p className="text-xs text-muted-foreground">
+                      {testimonial.role}, {testimonial.company}
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            </StaggerItem>
+          ))}
+        </Stagger>
+      ) : (
+        // Desktop view - Carousel
+        <div ref={ref} className="relative max-w-4xl mx-auto px-4">
+          {/* Testimonial Cards */}
+          <div className="relative min-h-[320px] md:min-h-[280px] flex items-center justify-center">
+            <AnimatePresence mode="wait">
+              {testimonials.map((testimonial, index) => (
+                <TestimonialCard key={testimonial.id} testimonial={testimonial} isActive={index === activeIndex} activeIndex={activeIndex} />
+              ))}
+            </AnimatePresence>
+          </div>
+
+          {/* Navigation Controls */}
+          <div className="mt-12 flex justify-between items-center">
+            {/* Left Navigation Button */}
+            <NavButton direction="left" onClick={goToPrevious} />
+
+            {/* Dots Indicator */}
+            <DotsIndicator count={testimonials.length} active={activeIndex} onSelect={handleManualNavigation} />
+
+            {/* Right Navigation Button */}
+            <NavButton direction="right" onClick={goToNext} />
+          </div>
         </div>
-
-        {/* Navigation Controls */}
-        <div className="mt-12 flex justify-between items-center">
-          {/* Left Navigation Button */}
-          <NavButton direction="left" onClick={goToPrevious} />
-
-          {/* Dots Indicator */}
-          <DotsIndicator count={testimonials.length} active={activeIndex} onSelect={handleManualNavigation} />
-
-          {/* Right Navigation Button */}
-          <NavButton direction="right" onClick={goToNext} />
-        </div>
-      </div>
+      )}
     </Section>
   );
 }

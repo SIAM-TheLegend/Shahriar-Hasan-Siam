@@ -11,7 +11,7 @@ import { Container } from "../ui/container";
 import { Heading, Paragraph } from "../ui/typography";
 import { Button } from "../ui/button";
 import { Card } from "../ui/card";
-import { FadeIn, SlideIn, Stagger, AnimatedText } from "../ui/animations";
+import { FadeIn, SlideIn, Stagger, AnimatedText, StaggerGrid, StaggerGridItem } from "../ui/animations";
 import { Project, ProjectTag, projects, projectTags } from "@/constants/projects";
 import { SectionProps } from "./SectionProps";
 
@@ -99,23 +99,23 @@ export function ProjectsSection({ withTransition = false, withParallax = false, 
         {/* Project Grid or Detailed View */}
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.5 }}>
           {!isDetailView ? (
-            // Project Grid View with Staggered Animation
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            // Project Grid View with Enhanced Staggered Animation
+            <StaggerGrid columns={3} pattern="sequence" gap={6} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredProjects.map((project, index) => (
-                <motion.div key={project.id} custom={index} variants={cardVariants} initial="hidden" animate="visible" whileHover={{ y: -5 }} className="overflow-hidden">
+                <StaggerGridItem key={project.id} whileHover={{ y: -5 }} className="overflow-hidden">
                   <Card className="h-full flex flex-col cursor-pointer overflow-hidden group transition-all duration-300" onClick={() => handleProjectSelect(project)}>
                     <div className="relative h-48 w-full overflow-hidden">
                       <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-all duration-300 z-10" />
                       <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.4 }} className="h-full w-full relative">
                         <div className="relative w-full h-full bg-muted">
                           {/* This would be a real image in production */}
-                          <div className="absolute inset-0 flex items-center justify-center">
-                            <span className="text-muted-foreground/40">Project Image</span>
+                          <div className="absolute inset-0">
+                            <Image src={`https://picsum.photos/seed/${project.id}/800/600`} alt={project.title} fill sizes="(max-width: 768px) 100vw, 33vw" style={{ objectFit: "cover" }} />
                           </div>
                         </div>
                       </motion.div>
                     </div>
-                    <div className="flex-1 p-5 flex flex-col">
+                    <div className="p-4 flex flex-col flex-grow">
                       <div className="flex items-start justify-between">
                         <h3 className="font-semibold text-xl mb-2 group-hover:text-primary transition-colors">{project.title}</h3>
                         {project.featured && <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">Featured</span>}
@@ -140,9 +140,9 @@ export function ProjectsSection({ withTransition = false, withParallax = false, 
                       </div>
                     </div>
                   </Card>
-                </motion.div>
+                </StaggerGridItem>
               ))}
-            </div>
+            </StaggerGrid>
           ) : (
             // Detailed Project View
             selectedProject && (
@@ -157,8 +157,8 @@ export function ProjectsSection({ withTransition = false, withParallax = false, 
                     <div className="relative aspect-video w-full overflow-hidden rounded-lg">
                       <div className="relative w-full h-full bg-muted">
                         {/* This would be a real image in production */}
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <span className="text-muted-foreground/40">Project Image</span>
+                        <div className="absolute inset-0">
+                          <Image src={`https://picsum.photos/seed/${selectedProject.id}/1200/800`} alt={selectedProject.title} fill sizes="(max-width: 768px) 100vw, 60vw" style={{ objectFit: "cover" }} />
                         </div>
                       </div>
                     </div>

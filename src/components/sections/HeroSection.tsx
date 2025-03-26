@@ -109,7 +109,7 @@ export function HeroSection({ withTransition = false, withParallax = false, acti
               <FadeIn delay={0.8}>
                 <motion.div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-background shadow-lg" whileHover={!prefersReducedMotion ? { scale: 1.05 } : undefined} transition={{ type: "spring", stiffness: 300, damping: 15 }}>
                   <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-secondary/10 mix-blend-overlay z-10" />
-                  <Image src="/images/profile.jpg" alt="Shahriar Hasan Siam - Frontend Developer & UI/UX Designer" fill sizes="(max-width: 768px) 256px, 320px" style={{ objectFit: "cover" }} priority className="z-0" />
+                  <Image src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3" alt="Shahriar Hasan Siam - Frontend Developer & UI/UX Designer" fill sizes="(max-width: 768px) 256px, 320px" style={{ objectFit: "cover" }} priority className="z-0" />
                 </motion.div>
               </FadeIn>
             </div>
