@@ -37,7 +37,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <ThemeProvider>
-          <BackgroundAnimation particleCount={10} highPerformance={false} />
+          <BackgroundAnimation particleCount={25} highPerformance={true} />
           <LoadingScreen />
           <Header />
           <main className="min-h-screen pt-20">

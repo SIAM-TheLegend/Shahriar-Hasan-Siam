@@ -29,7 +29,7 @@ interface BackgroundAnimationProps {
  * Creates a subtle animated background effect with floating particles
  * Automatically adjusts based on theme and reduces animation complexity on mobile
  */
-export function BackgroundAnimation({ particleCount = 15, highPerformance = false, className, zIndex = -10 }: BackgroundAnimationProps) {
+export function BackgroundAnimation({ particleCount = 15, highPerformance = false, className, zIndex = -1 }: BackgroundAnimationProps) {
   const { theme } = useTheme();
   const containerRef = useRef<HTMLDivElement>(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
@@ -69,11 +69,11 @@ export function BackgroundAnimation({ particleCount = 15, highPerformance = fals
     const x = Math.random() * 100;
     const y = Math.random() * 100;
 
-    // Random size between 5px and 30px
-    const size = Math.floor(Math.random() * 25) + 5;
+    // Random size between 10px and 40px (increased for better glassmorphism effect)
+    const size = Math.floor(Math.random() * 30) + 10;
 
-    // Random opacity between 0.03 and 0.08
-    const opacity = Math.random() * 0.05 + 0.03;
+    // Random opacity between 0.15 and 0.35 (adjusted for glassmorphism)
+    const opacity = Math.random() * 0.2 + 0.15;
 
     // Random animation duration between 20s and 40s
     const duration = Math.random() * 20 + 20;
@@ -81,21 +81,31 @@ export function BackgroundAnimation({ particleCount = 15, highPerformance = fals
     // Random rotation for complex animations
     const rotate = effectiveComplexity ? Math.random() * 360 : 0;
 
-    return { id: i, x, y, size, opacity, duration, rotate };
+    // Random blur amount for glassmorphism effect (2-6px)
+    const blur = Math.floor(Math.random() * 4) + 2;
+
+    // Random border width (0-2px)
+    const borderWidth = Math.floor(Math.random() * 3);
+
+    return { id: i, x, y, size, opacity, duration, rotate, blur, borderWidth };
   });
 
   return (
-    <div ref={containerRef} className={cn("fixed inset-0 overflow-hidden pointer-events-none", className)} style={{ zIndex }} aria-hidden="true">
+    <div ref={containerRef} className={cn("fixed inset-0 overflow-hidden pointer-events-none", className)} style={{ zIndex }} aria-hidden="true" data-testid="background-animation">
       {particles.map((particle) => (
         <motion.div
           key={particle.id}
-          className={cn("absolute rounded-full", theme === "dark" ? "bg-primary/10" : "bg-primary/5")}
+          className={cn("absolute rounded-full backdrop-blur-sm", theme === "dark" ? "bg-primary/20" : "bg-primary/15")}
           style={{
             left: `${particle.x}%`,
             top: `${particle.y}%`,
             width: particle.size,
             height: particle.size,
             opacity: particle.opacity,
+            filter: `blur(${particle.blur}px)`,
+            backdropFilter: "blur(8px)",
+            boxShadow: theme === "dark" ? `0 4px 30px rgba(255, 255, 255, 0.1), inset 0 0 ${particle.borderWidth}px rgba(255, 255, 255, 0.3)` : `0 4px 30px rgba(0, 0, 0, 0.1), inset 0 0 ${particle.borderWidth}px rgba(0, 0, 0, 0.2)`,
+            border: particle.borderWidth > 0 ? `${particle.borderWidth}px solid ${theme === "dark" ? "rgba(255, 255, 255, 0.2)" : "rgba(0, 0, 0, 0.1)"}` : "none",
           }}
           animate={{
             x: [Math.random() * 100 - 50, Math.random() * 100 - 50, Math.random() * 100 - 50],
