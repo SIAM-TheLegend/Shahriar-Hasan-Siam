@@ -130,32 +130,28 @@ export const getOptimizedAnimationCount = (baseCount: number): number => {
   }
 };
 
+// Import React hooks at the top level instead of conditionally
+import { useState, useEffect } from "react";
+
 /**
  * A hook that returns device-optimized animation settings
  * Uses window resize listener to update values in real-time
  * @returns Object with all device-optimized animation settings
  */
 export const useDeviceOptimizedAnimations = () => {
-  // Only use in browser environment
-  if (typeof window === "undefined") {
-    return {
-      deviceType: "desktop",
-      timings: getOptimizedTimings(),
-      threshold: getOptimizedThreshold(),
-      useHighComplexity: true,
-      getOptimizedCount: getOptimizedAnimationCount,
-    };
-  }
+  // Check for SSR (server-side rendering)
+  const isSSR = typeof window === "undefined";
 
-  // Import React hooks dynamically for client-side only code
-  const { useState, useEffect } = require("react");
-
-  const [deviceType, setDeviceType] = useState(getDeviceType());
+  // Initialize with SSR-safe values or client values
+  const [deviceType, setDeviceType] = useState(isSSR ? "desktop" : getDeviceType());
   const [timings, setTimings] = useState(getOptimizedTimings());
   const [threshold, setThreshold] = useState(getOptimizedThreshold());
-  const [useHighComplexity, setUseHighComplexity] = useState(shouldUseHighComplexityAnimations());
+  const [useHighComplexity, setUseHighComplexity] = useState(isSSR ? true : shouldUseHighComplexityAnimations());
 
   useEffect(() => {
+    // Skip effect on server
+    if (isSSR) return;
+
     const handleResize = () => {
       const newDeviceType = getDeviceType();
       setDeviceType(newDeviceType);
@@ -166,7 +162,7 @@ export const useDeviceOptimizedAnimations = () => {
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [isSSR]);
 
   return {
     deviceType,
