@@ -108,9 +108,9 @@ export function Header() {
 
   return (
     <header className={`fixed top-0 z-50 w-full transition-all duration-300 ${isScrolled ? "bg-background/90 backdrop-blur-md shadow-md" : "bg-transparent"}`}>
-      <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+      <div className="container mx-auto px-3 sm:px-4 py-3 sm:py-4 flex items-center justify-between">
         {/* Logo */}
-        <Link href="#home" className="text-2xl font-bold tracking-tight" onClick={(e) => handleNavClick(e, "home")}>
+        <Link href="#home" className="text-xl sm:text-2xl font-bold tracking-tight" onClick={(e) => handleNavClick(e, "home")}>
           ShahRiar
         </Link>
 
@@ -129,9 +129,9 @@ export function Header() {
         </a>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-8">
+        <nav className="hidden md:flex items-center space-x-6 lg:space-x-8">
           {navLinks.map((link) => (
-            <Link key={link.href} href={`#${link.href}`} onClick={(e) => handleNavClick(e, link.href)} className={`font-medium transition-colors relative ${activeSection === link.href ? "text-foreground" : "text-muted-foreground hover:text-foreground"}`} aria-current={activeSection === link.href ? "page" : undefined}>
+            <Link key={link.href} href={`#${link.href}`} onClick={(e) => handleNavClick(e, link.href)} className={`text-sm lg:text-base font-medium transition-colors relative ${activeSection === link.href ? "text-foreground" : "text-muted-foreground hover:text-foreground"}`} aria-current={activeSection === link.href ? "page" : undefined}>
               {link.label}
               {activeSection === link.href && <motion.span className="absolute -bottom-1 left-0 h-0.5 w-full bg-primary" layoutId="activeSection" transition={{ type: "spring", stiffness: 380, damping: 30 }} />}
             </Link>
@@ -141,9 +141,9 @@ export function Header() {
 
         {/* Mobile Menu Toggle and Theme Toggle */}
         <div className="flex items-center md:hidden">
-          <ThemeToggle className="mr-2" />
-          <button type="button" onClick={toggleMobileMenu} className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"} aria-expanded={isMobileMenuOpen}>
-            {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          <ThemeToggle className="mr-1 sm:mr-2" />
+          <button type="button" onClick={toggleMobileMenu} className="p-1.5 sm:p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"} aria-expanded={isMobileMenuOpen}>
+            {isMobileMenuOpen ? <X className="h-5 w-5 sm:h-6 sm:w-6" /> : <Menu className="h-5 w-5 sm:h-6 sm:w-6" />}
           </button>
         </div>
       </div>
@@ -152,7 +152,7 @@ export function Header() {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div initial="hidden" animate="visible" exit="exit" variants={mobileMenuVariants} className="md:hidden bg-background border-t border-border">
-            <nav className="container mx-auto px-4 py-4 flex flex-col space-y-4">
+            <nav className="container mx-auto px-4 py-3 flex flex-col space-y-3">
               {navLinks.map((link) => (
                 <Link key={link.href} href={`#${link.href}`} onClick={(e) => handleNavClick(e, link.href)} className={`font-medium py-2 transition-colors ${activeSection === link.href ? "text-foreground" : "text-muted-foreground hover:text-foreground"}`} aria-current={activeSection === link.href ? "page" : undefined}>
                   <div className="flex items-center">

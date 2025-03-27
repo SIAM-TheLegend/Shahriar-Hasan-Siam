@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/contexts/ThemeContext";
 import { Header, Footer, PageWrapper } from "@/components/layout";
 import { LoadingScreen } from "@/components/ui/LoadingScreen";
 import { BackgroundAnimation } from "@/components/ui/animations";
+import { DevTools } from "@/components/ui/DevTools";
 
 // Load Inter font with Latin subset
 const inter = Inter({ subsets: ["latin"], display: "swap" });
@@ -37,6 +38,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <ThemeProvider>
+          {/* DevTools for responsive testing in development mode only */}
+          <DevTools showResponsiveTools={process.env.NODE_ENV === "development"} />
+
           <BackgroundAnimation particleCount={25} highPerformance={true} />
           <LoadingScreen />
           <Header />
