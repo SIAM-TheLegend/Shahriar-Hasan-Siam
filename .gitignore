@@ -17,6 +17,7 @@
 /build
 .cursor
 docs
+tasks
 
 # misc
 .DS_Store
