@@ -50,8 +50,8 @@ export function Navigation() {
       y: 0,
       opacity: 1,
       transition: {
+        // Using default easing to avoid type incompatibility with the Motion types
         duration: 0.6,
-        ease: "easeOut",
       },
     },
   };
@@ -61,8 +61,8 @@ export function Navigation() {
       scale: 1.1,
       rotate: 5,
       transition: {
+        // Using default easing to avoid type incompatibility with the Motion types
         duration: 0.3,
-        ease: "easeInOut",
       },
     },
   };
@@ -71,8 +71,8 @@ export function Navigation() {
     hover: {
       scale: 1.05,
       transition: {
+        // Using default easing to avoid type incompatibility with the Motion types
         duration: 0.2,
-        ease: "easeInOut",
       },
     },
     tap: {
@@ -83,11 +83,15 @@ export function Navigation() {
   return (
     <motion.nav className="fixed top-0 left-0 right-0 z-50 bg-background/20 backdrop-blur border-b-2 border-border shadow-lg" variants={navVariants} initial="hidden" animate="visible">
       <div className="max-w-6xl mx-auto px-6 py-4">
-        <div className="flex items-center justify-between">
-          <motion.div className="font-mono text-lg font-semibold text-primary" variants={logoVariants} whileHover="hover">
+        {/* Three-section layout: Left (Title), Center (Menu), Right (Theme Toggle) */}
+        <div className="grid grid-cols-3 items-center">
+          {/* Left: Site title / logo */}
+          <motion.div className="font-mono text-lg font-semibold text-primary justify-self-start" variants={logoVariants} whileHover="hover">
             {"<Siam />"}
           </motion.div>
-          <div className="hidden md:flex items-center space-x-1">
+
+          {/* Center: Menu items */}
+          <div className="hidden md:flex items-center justify-center space-x-1">
             <AnimatePresence>
               {navItems.map((item, index) => (
                 <motion.div
@@ -108,18 +112,21 @@ export function Navigation() {
                 </motion.div>
               ))}
             </AnimatePresence>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{
-                opacity: 1,
-                scale: 1,
-                transition: { delay: 0.6 },
-              }}
-              whileHover={{ scale: 1.1 }}
-            >
-              <ThemeToggle />
-            </motion.div>
           </div>
+
+          {/* Right: Theme toggle */}
+          <motion.div
+            className="justify-self-end"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{
+              opacity: 1,
+              scale: 1,
+              transition: { delay: 0.6 },
+            }}
+            whileHover={{ scale: 1.1 }}
+          >
+            <ThemeToggle />
+          </motion.div>
         </div>
       </div>
     </motion.nav>
