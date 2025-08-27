@@ -1,17 +1,16 @@
-"use client"
+"use client";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { ExternalLink, Github } from "lucide-react"
-import { motion } from "framer-motion"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { ExternalLink, Github } from "lucide-react";
+import { motion } from "motion/react";
 
 export function Projects() {
   const projects = [
     {
       title: "E-Commerce Platform",
-      description:
-        "A full-stack e-commerce solution with user authentication, payment processing, and admin dashboard.",
+      description: "A full-stack e-commerce solution with user authentication, payment processing, and admin dashboard.",
       image: "/notion-style-line-art-ecommerce-shopping-cart-mini.png",
       technologies: ["React", "Node.js", "MongoDB", "Stripe"],
       liveUrl: "#",
@@ -20,8 +19,7 @@ export function Projects() {
     },
     {
       title: "Task Management App",
-      description:
-        "Collaborative task management tool with real-time updates, team collaboration, and progress tracking.",
+      description: "Collaborative task management tool with real-time updates, team collaboration, and progress tracking.",
       image: "/notion-style-line-art-task-management-checklist-mi.png",
       technologies: ["Next.js", "TypeScript", "PostgreSQL", "Socket.io"],
       liveUrl: "#",
@@ -30,8 +28,7 @@ export function Projects() {
     },
     {
       title: "Weather Dashboard",
-      description:
-        "Beautiful weather application with location-based forecasts, interactive maps, and data visualization.",
+      description: "Beautiful weather application with location-based forecasts, interactive maps, and data visualization.",
       image: "/notion-style-line-art-weather-dashboard-cloud-sun-.png",
       technologies: ["React", "Chart.js", "OpenWeather API", "Tailwind"],
       liveUrl: "#",
@@ -47,7 +44,7 @@ export function Projects() {
       githubUrl: "#",
       featured: false,
     },
-  ]
+  ];
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -58,7 +55,7 @@ export function Projects() {
         delayChildren: 0.1,
       },
     },
-  }
+  };
 
   const itemVariants = {
     hidden: { opacity: 0, y: 50 },
@@ -70,7 +67,7 @@ export function Projects() {
         ease: "easeOut",
       },
     },
-  }
+  };
 
   const cardVariants = {
     hidden: { opacity: 0, y: 30, scale: 0.95 },
@@ -91,7 +88,7 @@ export function Projects() {
         ease: "easeInOut",
       },
     },
-  }
+  };
 
   const imageVariants = {
     hover: {
@@ -101,7 +98,7 @@ export function Projects() {
         ease: "easeInOut",
       },
     },
-  }
+  };
 
   const badgeVariants = {
     hidden: { opacity: 0, scale: 0.8 },
@@ -120,7 +117,7 @@ export function Projects() {
         ease: "easeInOut",
       },
     },
-  }
+  };
 
   const buttonVariants = {
     hover: {
@@ -133,18 +130,12 @@ export function Projects() {
     tap: {
       scale: 0.95,
     },
-  }
+  };
 
   return (
     <section id="projects" className="py-20 bg-background">
       <div className="max-w-6xl mx-auto px-6">
-        <motion.div
-          className="text-center mb-16"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          variants={containerVariants}
-        >
+        <motion.div className="text-center mb-16" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={containerVariants}>
           <motion.h2 className="text-3xl md:text-4xl font-bold mb-4" variants={itemVariants}>
             Featured Projects
           </motion.h2>
@@ -153,24 +144,12 @@ export function Projects() {
           </motion.p>
         </motion.div>
 
-        <motion.div
-          className="grid md:grid-cols-2 gap-8"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={containerVariants}
-        >
+        <motion.div className="grid md:grid-cols-2 gap-8" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={containerVariants}>
           {projects.map((project, index) => (
             <motion.div key={project.title} variants={cardVariants} whileHover="hover" custom={index}>
               <Card className={`group overflow-hidden ${project.featured ? "border-primary/20" : ""}`}>
                 <div className="aspect-video overflow-hidden">
-                  <motion.img
-                    src={project.image || "/placeholder.svg"}
-                    alt={project.title}
-                    className="w-full h-full object-cover"
-                    variants={imageVariants}
-                    whileHover="hover"
-                  />
+                  <motion.img src={project.image || "/placeholder.svg"} alt={project.title} className="w-full h-full object-cover" variants={imageVariants} whileHover="hover" />
                 </div>
                 <CardHeader>
                   <div className="flex items-start justify-between">
@@ -288,5 +267,5 @@ export function Projects() {
         </motion.div>
       </div>
     </section>
-  )
+  );
 }

@@ -1,17 +1,17 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/button"
-import { TextGenerateEffect } from "@/components/ui/text-generate-effect"
-import { ArrowDown, Github, Linkedin, Mail } from "lucide-react"
-import { motion } from "framer-motion"
+import { Button } from "@/components/ui/button";
+import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
+import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
+import { motion } from "motion/react";
 
 export function Hero() {
   const scrollToAbout = () => {
-    const aboutSection = document.getElementById("about")
+    const aboutSection = document.getElementById("about");
     if (aboutSection) {
-      aboutSection.scrollIntoView({ behavior: "smooth" })
+      aboutSection.scrollIntoView({ behavior: "smooth" });
     }
-  }
+  };
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -22,7 +22,7 @@ export function Hero() {
         delayChildren: 0.1,
       },
     },
-  }
+  };
 
   const itemVariants = {
     hidden: { opacity: 0, y: 30 },
@@ -34,7 +34,7 @@ export function Hero() {
         ease: "easeOut",
       },
     },
-  }
+  };
 
   const avatarVariants = {
     hidden: { opacity: 0, scale: 0.8, rotate: -10 },
@@ -47,7 +47,7 @@ export function Hero() {
         ease: "easeOut",
       },
     },
-  }
+  };
 
   const socialVariants = {
     hidden: { opacity: 0, scale: 0.8 },
@@ -67,16 +67,11 @@ export function Hero() {
         ease: "easeInOut",
       },
     },
-  }
+  };
 
   return (
     <section id="hero" className="min-h-screen flex items-center justify-center bg-muted/30 pt-20">
-      <motion.div
-        className="max-w-4xl mx-auto px-6 text-center"
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-      >
+      <motion.div className="max-w-4xl mx-auto px-6 text-center" variants={containerVariants} initial="hidden" animate="visible">
         <motion.div className="mb-8" variants={itemVariants}>
           <motion.img
             src="/minimalist-line-art-developer-avatar-coding.png"
@@ -96,17 +91,10 @@ export function Hero() {
         </motion.h1>
 
         <motion.div className="mb-8 max-w-2xl mx-auto" variants={itemVariants}>
-          <TextGenerateEffect
-            words="Full-Stack MERN Developer crafting modern web experiences with clean code and thoughtful design"
-            className="text-xl md:text-2xl text-foreground text-balance"
-            duration={0.8}
-          />
+          <TextGenerateEffect words="Full-Stack MERN Developer crafting modern web experiences with clean code and thoughtful design" className="text-xl md:text-2xl text-foreground text-balance" duration={0.8} />
         </motion.div>
 
-        <motion.div
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
-          variants={itemVariants}
-        >
+        <motion.div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12" variants={itemVariants}>
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Button size="lg" className="min-w-[140px]">
               View My Work
@@ -146,5 +134,5 @@ export function Hero() {
         </motion.div>
       </motion.div>
     </section>
-  )
+  );
 }

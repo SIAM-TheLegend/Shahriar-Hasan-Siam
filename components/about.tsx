@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import { Card, CardContent } from "@/components/ui/card"
-import { TextGenerateEffect } from "@/components/ui/text-generate-effect"
-import { motion } from "framer-motion"
+import { Card, CardContent } from "@/components/ui/card";
+import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
+import { motion } from "motion/react";
 
 export function About() {
   const containerVariants = {
@@ -14,7 +14,7 @@ export function About() {
         delayChildren: 0.2,
       },
     },
-  }
+  };
 
   const itemVariants = {
     hidden: { opacity: 0, y: 50 },
@@ -26,7 +26,7 @@ export function About() {
         ease: "easeOut",
       },
     },
-  }
+  };
 
   const imageVariants = {
     hidden: { opacity: 0, x: -50, rotate: -5 },
@@ -39,7 +39,7 @@ export function About() {
         ease: "easeOut",
       },
     },
-  }
+  };
 
   const cardVariants = {
     hidden: { opacity: 0, scale: 0.9, y: 30 },
@@ -60,7 +60,7 @@ export function About() {
         ease: "easeInOut",
       },
     },
-  }
+  };
 
   const factItemVariants = {
     hidden: { opacity: 0, x: -20 },
@@ -72,18 +72,12 @@ export function About() {
         ease: "easeOut",
       },
     },
-  }
+  };
 
   return (
     <section id="about" className="py-20 bg-background">
       <div className="max-w-6xl mx-auto px-6">
-        <motion.div
-          className="text-center mb-16"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          variants={containerVariants}
-        >
+        <motion.div className="text-center mb-16" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={containerVariants}>
           <motion.h2 className="text-3xl md:text-4xl font-bold mb-4" variants={itemVariants}>
             About Me
           </motion.h2>
@@ -92,13 +86,7 @@ export function About() {
           </motion.p>
         </motion.div>
 
-        <motion.div
-          className="grid md:grid-cols-2 gap-12 items-center"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          variants={containerVariants}
-        >
+        <motion.div className="grid md:grid-cols-2 gap-12 items-center" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={containerVariants}>
           <motion.div variants={imageVariants}>
             <motion.img
               src="/notion-style-line-art-developer-working-on-laptop-.png"
@@ -113,12 +101,7 @@ export function About() {
           </motion.div>
 
           <motion.div className="space-y-6" variants={itemVariants}>
-            <TextGenerateEffect
-              words="I'm a passionate full-stack developer with 4+ years of experience building scalable web applications using the MERN stack. I love turning complex problems into simple, beautiful, and intuitive solutions."
-              className="text-lg leading-relaxed text-foreground"
-              duration={0.6}
-              triggerOnView={true}
-            />
+            <TextGenerateEffect words="I'm a passionate full-stack developer with 4+ years of experience building scalable web applications using the MERN stack. I love turning complex problems into simple, beautiful, and intuitive solutions." className="text-lg leading-relaxed text-foreground" duration={0.6} triggerOnView={true} />
 
             <motion.div variants={cardVariants} whileHover="hover">
               <Card className="border-primary/20">
@@ -149,12 +132,7 @@ export function About() {
                       },
                     }}
                   >
-                    {[
-                      "🎓 Computer Science Graduate",
-                      "💼 4+ Years Professional Experience",
-                      "🌍 Based in San Francisco, CA",
-                      "☕ Coffee Enthusiast & Problem Solver",
-                    ].map((fact, index) => (
+                    {["🎓 Computer Science Graduate", "💼 4+ Years Professional Experience", "🌍 Based in San Francisco, CA", "☕ Coffee Enthusiast & Problem Solver"].map((fact, index) => (
                       <motion.li key={index} variants={factItemVariants}>
                         {fact}
                       </motion.li>
@@ -167,5 +145,5 @@ export function About() {
         </motion.div>
       </div>
     </section>
-  )
+  );
 }

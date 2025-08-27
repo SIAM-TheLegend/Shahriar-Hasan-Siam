@@ -1,25 +1,13 @@
-"use client"
-import { useEffect, useRef, useState } from "react"
-import { motion, stagger, useAnimate } from "framer-motion"
-import { cn } from "@/lib/utils"
+"use client";
+import { useEffect, useRef, useState } from "react";
+import { motion, stagger, useAnimate } from "motion/react";
+import { cn } from "@/lib/utils";
 
-export const TextGenerateEffect = ({
-  words,
-  className,
-  filter = true,
-  duration = 0.2,
-  triggerOnView = false,
-}: {
-  words: string
-  className?: string
-  filter?: boolean
-  duration?: number
-  triggerOnView?: boolean
-}) => {
-  const [scope, animate] = useAnimate()
-  const [isInView, setIsInView] = useState(false)
-  const containerRef = useRef<HTMLDivElement>(null)
-  const wordsArray = words.split(" ")
+export const TextGenerateEffect = ({ words, className, filter = true, duration = 0.2, triggerOnView = false }: { words: string; className?: string; filter?: boolean; duration?: number; triggerOnView?: boolean }) => {
+  const [scope, animate] = useAnimate();
+  const [isInView, setIsInView] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const wordsArray = words.split(" ");
 
   useEffect(() => {
     if (!triggerOnView) {
@@ -33,16 +21,16 @@ export const TextGenerateEffect = ({
         {
           duration: duration ? duration : 1,
           delay: stagger(0.2),
-        },
-      )
-      return
+        }
+      );
+      return;
     }
 
     // New behavior - animate when entering viewport
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && !isInView) {
-          setIsInView(true)
+          setIsInView(true);
           animate(
             "span",
             {
@@ -52,26 +40,26 @@ export const TextGenerateEffect = ({
             {
               duration: duration ? duration : 1,
               delay: stagger(0.2),
-            },
-          )
+            }
+          );
         }
       },
       {
         threshold: 0.3, // Trigger when 30% of the element is visible
         rootMargin: "0px 0px -50px 0px", // Trigger slightly before fully in view
-      },
-    )
+      }
+    );
 
     if (containerRef.current) {
-      observer.observe(containerRef.current)
+      observer.observe(containerRef.current);
     }
 
     return () => {
       if (containerRef.current) {
-        observer.unobserve(containerRef.current)
+        observer.unobserve(containerRef.current);
       }
-    }
-  }, [scope.current, triggerOnView, isInView, animate, duration, filter])
+    };
+  }, [scope.current, triggerOnView, isInView, animate, duration, filter]);
 
   const renderWords = () => {
     return (
@@ -87,11 +75,11 @@ export const TextGenerateEffect = ({
             >
               {word}{" "}
             </motion.span>
-          )
+          );
         })}
       </motion.div>
-    )
-  }
+    );
+  };
 
   return (
     <div ref={containerRef} className={cn("font-bold", className)}>
@@ -99,5 +87,5 @@ export const TextGenerateEffect = ({
         <div className="text-foreground text-2xl leading-snug tracking-wide">{renderWords()}</div>
       </div>
     </div>
-  )
-}
+  );
+};

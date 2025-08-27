@@ -1,34 +1,34 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Mail, MapPin, Phone } from "lucide-react"
-import { motion } from "framer-motion"
+import { useState } from "react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Mail, MapPin, Phone } from "lucide-react";
+import { motion } from "motion/react";
 
 export function Contact() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
-  })
+  });
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     // Handle form submission
-    console.log("Form submitted:", formData)
-  }
+    console.log("Form submitted:", formData);
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
-    }))
-  }
+    }));
+  };
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -39,7 +39,7 @@ export function Contact() {
         delayChildren: 0.1,
       },
     },
-  }
+  };
 
   const itemVariants = {
     hidden: { opacity: 0, y: 50 },
@@ -51,7 +51,7 @@ export function Contact() {
         ease: "easeOut",
       },
     },
-  }
+  };
 
   const contactItemVariants = {
     hidden: { opacity: 0, x: -30 },
@@ -70,7 +70,7 @@ export function Contact() {
         ease: "easeInOut",
       },
     },
-  }
+  };
 
   const formVariants = {
     hidden: { opacity: 0, x: 30, scale: 0.95 },
@@ -83,7 +83,7 @@ export function Contact() {
         ease: "easeOut",
       },
     },
-  }
+  };
 
   const inputVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -102,7 +102,7 @@ export function Contact() {
         ease: "easeInOut",
       },
     },
-  }
+  };
 
   const iconVariants = {
     hover: {
@@ -113,7 +113,7 @@ export function Contact() {
         ease: "easeInOut",
       },
     },
-  }
+  };
 
   const buttonVariants = {
     hover: {
@@ -126,18 +126,12 @@ export function Contact() {
     tap: {
       scale: 0.95,
     },
-  }
+  };
 
   return (
     <section id="contact" className="py-20 bg-muted/30">
       <div className="max-w-4xl mx-auto px-6">
-        <motion.div
-          className="text-center mb-16"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          variants={containerVariants}
-        >
+        <motion.div className="text-center mb-16" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={containerVariants}>
           <motion.h2 className="text-3xl md:text-4xl font-bold mb-4" variants={itemVariants}>
             Get In Touch
           </motion.h2>
@@ -146,13 +140,7 @@ export function Contact() {
           </motion.p>
         </motion.div>
 
-        <motion.div
-          className="grid md:grid-cols-2 gap-12"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={containerVariants}
-        >
+        <motion.div className="grid md:grid-cols-2 gap-12" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={containerVariants}>
           <motion.div className="space-y-8" variants={itemVariants}>
             <div>
               <motion.h3
@@ -177,8 +165,7 @@ export function Contact() {
                 }}
                 viewport={{ once: true }}
               >
-                I'm always interested in hearing about new opportunities, interesting projects, or just having a chat
-                about technology and development.
+                I'm always interested in hearing about new opportunities, interesting projects, or just having a chat about technology and development.
               </motion.p>
             </div>
 
@@ -198,12 +185,7 @@ export function Contact() {
                 { icon: Phone, title: "Phone", value: "+880 1972-005986" },
                 { icon: MapPin, title: "Location", value: "Narsingdi, Dhaka, Bangladesh" },
               ].map((contact, index) => (
-                <motion.div
-                  key={contact.title}
-                  className="flex items-center gap-4 cursor-pointer"
-                  variants={contactItemVariants}
-                  whileHover="hover"
-                >
+                <motion.div key={contact.title} className="flex items-center gap-4 cursor-pointer" variants={contactItemVariants} whileHover="hover">
                   <motion.div
                     className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center"
                     whileHover={{
@@ -237,56 +219,19 @@ export function Contact() {
                   viewport={{ once: true }}
                 >
                   <CardTitle>Send a Message</CardTitle>
-                  <CardDescription>
-                    Fill out the form below and I'll get back to you as soon as possible.
-                  </CardDescription>
+                  <CardDescription>Fill out the form below and I'll get back to you as soon as possible.</CardDescription>
                 </motion.div>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-4">
-                  <motion.div
-                    variants={inputVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    whileFocus="focus"
-                    transition={{ delay: 0.3 }}
-                  >
+                  <motion.div variants={inputVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} whileFocus="focus" transition={{ delay: 0.3 }}>
                     <Input name="name" placeholder="Your Name" value={formData.name} onChange={handleChange} required />
                   </motion.div>
-                  <motion.div
-                    variants={inputVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    whileFocus="focus"
-                    transition={{ delay: 0.4 }}
-                  >
-                    <Input
-                      name="email"
-                      type="email"
-                      placeholder="Your Email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                    />
+                  <motion.div variants={inputVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} whileFocus="focus" transition={{ delay: 0.4 }}>
+                    <Input name="email" type="email" placeholder="Your Email" value={formData.email} onChange={handleChange} required />
                   </motion.div>
-                  <motion.div
-                    variants={inputVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    whileFocus="focus"
-                    transition={{ delay: 0.5 }}
-                  >
-                    <Textarea
-                      name="message"
-                      placeholder="Your Message"
-                      rows={5}
-                      value={formData.message}
-                      onChange={handleChange}
-                      required
-                    />
+                  <motion.div variants={inputVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} whileFocus="focus" transition={{ delay: 0.5 }}>
+                    <Textarea name="message" placeholder="Your Message" rows={5} value={formData.message} onChange={handleChange} required />
                   </motion.div>
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -324,5 +269,5 @@ export function Contact() {
         </motion.div>
       </div>
     </section>
-  )
+  );
 }

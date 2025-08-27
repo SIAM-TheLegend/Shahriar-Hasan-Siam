@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Progress } from "@/components/ui/progress"
-import { motion } from "framer-motion"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
+import { motion } from "motion/react";
 
 export function Skills() {
   const skillCategories = [
@@ -37,28 +37,9 @@ export function Skills() {
         { name: "Jest", level: 80 },
       ],
     },
-  ]
+  ];
 
-  const technologies = [
-    "JavaScript",
-    "TypeScript",
-    "React",
-    "Node.js",
-    "MongoDB",
-    "Express.js",
-    "Next.js",
-    "Tailwind CSS",
-    "PostgreSQL",
-    "Git",
-    "Docker",
-    "AWS",
-    "Redux",
-    "GraphQL",
-    "Jest",
-    "Cypress",
-    "Figma",
-    "Vercel",
-  ]
+  const technologies = ["JavaScript", "TypeScript", "React", "Node.js", "MongoDB", "Express.js", "Next.js", "Tailwind CSS", "PostgreSQL", "Git", "Docker", "AWS", "Redux", "GraphQL", "Jest", "Cypress", "Figma", "Vercel"];
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -69,7 +50,7 @@ export function Skills() {
         delayChildren: 0.1,
       },
     },
-  }
+  };
 
   const itemVariants = {
     hidden: { opacity: 0, y: 50 },
@@ -81,7 +62,7 @@ export function Skills() {
         ease: "easeOut",
       },
     },
-  }
+  };
 
   const cardVariants = {
     hidden: { opacity: 0, y: 30, scale: 0.9 },
@@ -102,7 +83,7 @@ export function Skills() {
         ease: "easeInOut",
       },
     },
-  }
+  };
 
   const skillVariants = {
     hidden: { opacity: 0, x: -20 },
@@ -114,7 +95,7 @@ export function Skills() {
         ease: "easeOut",
       },
     },
-  }
+  };
 
   const progressVariants = {
     hidden: { width: 0 },
@@ -126,7 +107,7 @@ export function Skills() {
         delay: 0.2,
       },
     }),
-  }
+  };
 
   const badgeVariants = {
     hidden: { opacity: 0, scale: 0.8 },
@@ -146,18 +127,12 @@ export function Skills() {
         ease: "easeInOut",
       },
     },
-  }
+  };
 
   return (
     <section id="skills" className="py-20 bg-muted/30">
       <div className="max-w-6xl mx-auto px-6">
-        <motion.div
-          className="text-center mb-16"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          variants={containerVariants}
-        >
+        <motion.div className="text-center mb-16" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={containerVariants}>
           <motion.h2 className="text-3xl md:text-4xl font-bold mb-4" variants={itemVariants}>
             Skills & Technologies
           </motion.h2>
@@ -166,13 +141,7 @@ export function Skills() {
           </motion.p>
         </motion.div>
 
-        <motion.div
-          className="grid md:grid-cols-3 gap-8 mb-16"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={containerVariants}
-        >
+        <motion.div className="grid md:grid-cols-3 gap-8 mb-16" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={containerVariants}>
           {skillCategories.map((category, categoryIndex) => (
             <motion.div key={category.title} variants={cardVariants} whileHover="hover" custom={categoryIndex}>
               <Card className="border-primary/10 h-full">
@@ -214,14 +183,7 @@ export function Skills() {
                         </div>
                         <div className="relative">
                           <Progress value={0} className="h-2" />
-                          <motion.div
-                            className="absolute top-0 left-0 h-2 bg-primary rounded-full"
-                            initial="hidden"
-                            whileInView="visible"
-                            viewport={{ once: true }}
-                            variants={progressVariants}
-                            custom={skill.level}
-                          />
+                          <motion.div className="absolute top-0 left-0 h-2 bg-primary rounded-full" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={progressVariants} custom={skill.level} />
                         </div>
                       </motion.div>
                     ))}
@@ -232,13 +194,7 @@ export function Skills() {
           ))}
         </motion.div>
 
-        <motion.div
-          className="text-center"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          variants={containerVariants}
-        >
+        <motion.div className="text-center" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={containerVariants}>
           <motion.h3 className="text-xl font-semibold mb-6" variants={itemVariants}>
             Technologies I Work With
           </motion.h3>
@@ -264,5 +220,5 @@ export function Skills() {
         </motion.div>
       </div>
     </section>
-  )
+  );
 }

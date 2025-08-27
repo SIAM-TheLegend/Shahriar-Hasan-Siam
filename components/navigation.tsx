@@ -1,40 +1,40 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { Button } from "@/components/ui/button"
-import { ThemeToggle } from "./theme-toggle"
-import { motion, AnimatePresence } from "framer-motion"
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "./theme-toggle";
+import { motion, AnimatePresence } from "motion/react";
 
 export function Navigation() {
-  const [activeSection, setActiveSection] = useState("hero")
+  const [activeSection, setActiveSection] = useState("hero");
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["hero", "about", "skills", "projects", "contact"]
-      const scrollPosition = window.scrollY + 100
+      const sections = ["hero", "about", "skills", "projects", "contact"];
+      const scrollPosition = window.scrollY + 100;
 
       for (const section of sections) {
-        const element = document.getElementById(section)
+        const element = document.getElementById(section);
         if (element) {
-          const { offsetTop, offsetHeight } = element
+          const { offsetTop, offsetHeight } = element;
           if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(section)
-            break
+            setActiveSection(section);
+            break;
           }
         }
       }
-    }
+    };
 
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId)
+    const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" })
+      element.scrollIntoView({ behavior: "smooth" });
     }
-  }
+  };
 
   const navItems = [
     { id: "hero", label: "Home" },
@@ -42,7 +42,7 @@ export function Navigation() {
     { id: "skills", label: "Skills" },
     { id: "projects", label: "Projects" },
     { id: "contact", label: "Contact" },
-  ]
+  ];
 
   const navVariants = {
     hidden: { y: -100, opacity: 0 },
@@ -54,7 +54,7 @@ export function Navigation() {
         ease: "easeOut",
       },
     },
-  }
+  };
 
   const logoVariants = {
     hover: {
@@ -65,7 +65,7 @@ export function Navigation() {
         ease: "easeInOut",
       },
     },
-  }
+  };
 
   const navItemVariants = {
     hover: {
@@ -78,22 +78,13 @@ export function Navigation() {
     tap: {
       scale: 0.95,
     },
-  }
+  };
 
   return (
-    <motion.nav
-      className="fixed top-0 left-0 right-0 z-50 bg-background/20 backdrop-blur border-b-2 border-border shadow-lg"
-      variants={navVariants}
-      initial="hidden"
-      animate="visible"
-    >
+    <motion.nav className="fixed top-0 left-0 right-0 z-50 bg-background/20 backdrop-blur border-b-2 border-border shadow-lg" variants={navVariants} initial="hidden" animate="visible">
       <div className="max-w-6xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <motion.div
-            className="font-mono text-lg font-semibold text-primary"
-            variants={logoVariants}
-            whileHover="hover"
-          >
+          <motion.div className="font-mono text-lg font-semibold text-primary" variants={logoVariants} whileHover="hover">
             {"<Siam />"}
           </motion.div>
           <div className="hidden md:flex items-center space-x-1">
@@ -111,12 +102,7 @@ export function Navigation() {
                     transition: { delay: index * 0.1 },
                   }}
                 >
-                  <Button
-                    variant={activeSection === item.id ? "default" : "ghost"}
-                    size="sm"
-                    onClick={() => scrollToSection(item.id)}
-                    className="text-sm"
-                  >
+                  <Button variant={activeSection === item.id ? "default" : "ghost"} size="sm" onClick={() => scrollToSection(item.id)} className="text-sm">
                     {item.label}
                   </Button>
                 </motion.div>
@@ -137,5 +123,5 @@ export function Navigation() {
         </div>
       </div>
     </motion.nav>
-  )
+  );
 }

@@ -1,44 +1,44 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { Button } from "@/components/ui/button"
-import { Moon, Sun } from "lucide-react"
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { Moon, Sun } from "lucide-react";
 
 export function ThemeToggle() {
-  const [isDark, setIsDark] = useState(true) // Default to dark theme
+  const [isDark, setIsDark] = useState(false); // Default to light theme
 
   useEffect(() => {
-    // Check for saved theme preference or default to dark
-    const savedTheme = localStorage.getItem("theme")
-    const prefersDark = savedTheme === "dark" || !savedTheme
+    // Resolve saved theme; default to light when absent
+    const savedTheme = localStorage.getItem("theme");
+    const isSavedDark = savedTheme === "dark";
 
-    setIsDark(prefersDark)
-    document.documentElement.classList.toggle("dark", prefersDark)
-  }, [])
+    setIsDark(isSavedDark);
+    document.documentElement.classList.toggle("dark", isSavedDark);
+  }, []);
 
   const toggleTheme = () => {
-    const newTheme = !isDark
+    const newTheme = !isDark;
 
     const switchTheme = () => {
-      setIsDark(newTheme)
-      document.documentElement.classList.toggle("dark", newTheme)
-      localStorage.setItem("theme", newTheme ? "dark" : "light")
-    }
+      setIsDark(newTheme);
+      document.documentElement.classList.toggle("dark", newTheme);
+      localStorage.setItem("theme", newTheme ? "dark" : "light");
+    };
 
     // Check if View Transitions API is supported
     if (document.startViewTransition) {
       document.startViewTransition(() => {
-        switchTheme()
-      })
+        switchTheme();
+      });
     } else {
       // Fallback for browsers that don't support the API
-      switchTheme()
+      switchTheme();
     }
-  }
+  };
 
   return (
     <Button variant="ghost" size="sm" onClick={toggleTheme} className="w-9 h-9 p-0" aria-label="Toggle theme">
       {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
     </Button>
-  )
+  );
 }
