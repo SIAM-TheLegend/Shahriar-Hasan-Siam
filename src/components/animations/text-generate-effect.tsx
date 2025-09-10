@@ -84,7 +84,7 @@ export const TextGenerateEffect = ({ words, className, filter = true, duration =
   return (
     <div ref={containerRef} className={cn("font-bold", className)}>
       <div className="mt-4">
-        <div className="text-foreground text-2xl leading-snug tracking-wide">{renderWords()}</div>
+        <div className="text-foreground text-xl md:text-2xl leading-snug tracking-wide">{renderWords()}</div>
       </div>
     </div>
   );

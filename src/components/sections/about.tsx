@@ -2,6 +2,7 @@
 
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
+import { TextGenerateEffect } from "../animations/text-generate-effect";
 
 export function About() {
   return (
@@ -18,7 +19,7 @@ export function About() {
           </div>
 
           <div className="space-y-6">
-            <p className="text-lg leading-relaxed text-foreground">I'm a passionate full-stack developer with 4+ years of experience building scalable web applications using the MERN stack. I love turning complex problems into simple, beautiful, and intuitive solutions.</p>
+            <TextGenerateEffect words="I'm a passionate full-stack developer with 4+ years of experience building scalable web applications using the MERN stack. I love turning complex problems into simple, beautiful, and intuitive solutions." className="text-balance" duration={0.8} />
 
             <div>
               <Card className="border-primary/20">
