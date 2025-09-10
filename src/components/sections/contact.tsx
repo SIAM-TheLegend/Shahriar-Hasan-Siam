@@ -92,10 +92,6 @@ export function Contact() {
             </Card>
           </div>
         </div>
-
-        <div className="text-center mt-16 pt-8 border-t border-border">
-          <p className="text-muted-foreground">© 2024 Shahriar Hasan Siam. Built with Next.js and Tailwind CSS.</p>
-        </div>
       </div>
     </section>
   );

@@ -13,8 +13,8 @@ export function About() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className="w-full max-w-md rounded-2xl border-8 border-border mx-auto relative">
-            <Image src="/developer-working-on-laptop-line-art.png" alt="Developer working" fill={true} className="object-cover" />
+          <div>
+            <Image src="/developer-working-on-laptop-line-art.png" alt="Developer working" width={400} height={400} className="max-w-md rounded-2xl border-8 border-border mx-auto" />
           </div>
 
           <div className="space-y-6">
@@ -25,7 +25,7 @@ export function About() {
                 <CardContent className="px-6 py-px">
                   <h3 className="font-semibold mb-3 text-primary">Quick Facts</h3>
                   <ul className="space-y-2 text-sm">
-                    {["🎓 Computer Science Graduate", "💼 4+ Years Professional Experience", "🌍 Based in Narsingdi, Dhaka, Bangladesh", "☕ Coffee Enthusiast & Problem Solver"].map((fact, index) => (
+                    {["🎓 Computer Science and Engineering (CSE)", "💼 4+ Years Professional Experience", "🌍 Based in Narsingdi, Dhaka, Bangladesh", "☕ Coffee Enthusiast & Problem Solver"].map((fact, index) => (
                       <li key={index}>{fact}</li>
                     ))}
                   </ul>
