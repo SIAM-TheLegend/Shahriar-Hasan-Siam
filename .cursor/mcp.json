@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "Browser Tools": {
+      "command": "npx",
+      "args": ["-y", "@agentdeskai/browser-tools-mcp"]
+    },
+    "Playwright": {
+      "command": "npx",
+      "args": ["@playwright/mcp@latest"]
+    }
+  }
+}
