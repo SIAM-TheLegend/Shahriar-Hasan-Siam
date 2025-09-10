@@ -97,12 +97,12 @@ export function Hero() {
         <motion.div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12" variants={itemVariants}>
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Button size="lg" className="min-w-[140px]">
-              <a href="https://www.revenuecpmgate.com/z9jyj4j7r?key=fb56f9c60a35881bac92e7254ced13cc">View My Work</a>
+              <a href="#">View My Work</a>
             </Button>
           </motion.div>
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Button variant="outline" size="lg" className="min-w-[140px] bg-transparent">
-              <a href="https://www.revenuecpmgate.com/z9jyj4j7r?key=fb56f9c60a35881bac92e7254ced13cc">Download CV</a>
+              <a href="#">Download CV</a>
             </Button>
           </motion.div>
         </motion.div>
