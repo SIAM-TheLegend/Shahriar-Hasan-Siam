@@ -4,6 +4,7 @@ alwaysApply: true
 
 # Components and Animations
 
-- Try to add Shadcn components everywhere (where possible)
+- Try to add Shadcn components everywhere (where possible). You should use terminal command (like `npx shadcn add <component>`) instead of generating shadcn files by yourself.
+- You should use shadcn class variables everywhere, so it stays connected with the global.css file.
 - Add Modern animations using Motion (formerly Framer Motion), with engaging Micro-animations
 - Build the UI and UX properly; and it should maintain modern UI/UX patterns, so the users stays engaged.
