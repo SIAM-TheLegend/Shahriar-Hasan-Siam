@@ -31,13 +31,15 @@ export function Hero() {
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
           <div>
-            <Button size="lg" className="min-w-[140px]">
-              <a href="#">View My Work</a>
+            <Button size="lg" className="min-w-[140px]" onClick={scrollToAbout}>
+              View My Work
             </Button>
           </div>
           <div>
-            <Button variant="outline" size="lg" className="min-w-[140px] bg-transparent">
-              <a href="#">Download CV</a>
+            <Button asChild variant="outline" size="lg" className="min-w-[140px] bg-transparent">
+              <Link href={siteLinks.cv} target="_blank" rel="noopener noreferrer">
+                Download CV
+              </Link>
             </Button>
           </div>
         </div>
