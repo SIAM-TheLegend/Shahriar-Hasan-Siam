@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "motion/react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -63,8 +64,10 @@ export function FeaturedProjects() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    {/* Media placeholder with subtle accent border */}
-                    <div className="aspect-video w-full rounded-lg border border-dashed border-foreground/15 bg-gradient-to-br from-muted to-background" />
+                    {/* Project cover image. Using a placeholder URL for now. Replace later with real screenshots. */}
+                    <div className="relative aspect-video w-full overflow-hidden rounded-lg border border-foreground/15">
+                      <Image src="https://i.ibb.co/zVnvhD3R/image.png" alt={`${project.title} screenshot`} fill sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" priority={index === 0} className="object-cover" />
+                    </div>
 
                     <p className="text-sm text-muted-foreground leading-relaxed">{project.description}</p>
 
