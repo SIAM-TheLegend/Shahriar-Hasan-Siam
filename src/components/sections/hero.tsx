@@ -47,21 +47,21 @@ export function Hero() {
         <div className="flex items-center justify-center gap-6 mb-12">
           {/* Social Links: GitHub, LinkedIn, Email */}
           <div>
-            <Button asChild variant="ghost" size="icon" className="rounded-full border-2 border-foreground/15 shadow-lg">
+            <Button asChild variant="ghost" size="icon" className="rounded-full border-2 border-foreground/15 shadow-lg shadow-current/15 dark:shadow-current/15">
               <Link href={siteLinks.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">
                 <Github className="h-5 w-5" />
               </Link>
             </Button>
           </div>
           <div>
-            <Button asChild variant="ghost" size="icon" className="rounded-full border-2 border-foreground/15 shadow-lg">
+            <Button asChild variant="ghost" size="icon" className="rounded-full border-2 border-foreground/15 shadow-lg shadow-current/15 dark:shadow-current/15">
               <Link href={siteLinks.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">
                 <Linkedin className="h-5 w-5" />
               </Link>
             </Button>
           </div>
           <div>
-            <Button asChild variant="ghost" size="icon" className="rounded-full border-2 border-foreground/15 shadow-lg">
+            <Button asChild variant="ghost" size="icon" className="rounded-full border-2 border-foreground/15 shadow-lg shadow-current/15 dark:shadow-current/15">
               <Link href={`mailto:${siteLinks.email}`} aria-label="Send email">
                 <Mail className="h-5 w-5" />
               </Link>
