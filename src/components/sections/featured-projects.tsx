@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "motion/react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { siteLinks } from "@/lib/site";
 
 type Project = {
   title: string;
@@ -15,26 +16,33 @@ type Project = {
 
 const featuredProjects: Project[] = [
   {
+    title: "Cinema Studio",
+    description: "AI build Cinema Studio Landing page design",
+    tech: ["Next.js", "Edge Functions", "OpenAI", "Redis", "Zod"],
+    liveUrl: "https://cinema-studio-by-siam.netlify.app/",
+    sourceUrl: "https://github.com/SIAM-TheLegend/Cinema-Studio-Design",
+  },
+  {
     title: "Realtime Chat Platform",
     description: "A scalable MERN chat app with websockets, message persistence, and optimistic UI updates.",
-    tech: ["Next.js", "Node.js", "Socket.IO", "MongoDB", "TailwindCSS"],
+    tech: ["Next.js", "Node.js", "Socket.IO", "Shadcn UI", "MongoDB", "TailwindCSS"],
     liveUrl: "https://example.com/chat",
     sourceUrl: "https://github.com/username/realtime-chat",
   },
   {
     title: "E-commerce Dashboard",
     description: "Admin dashboard with analytics, order management, and product catalogs. Modular and extensible.",
-    tech: ["Next.js", "Prisma", "PostgreSQL", "tRPC", "Shadcn UI"],
+    tech: ["Next.js", "Prisma", "PostgreSQL", "Supabase", "tRPC", "Shadcn UI"],
     liveUrl: "https://example.com/ecommerce-dashboard",
     sourceUrl: "https://github.com/username/ecommerce-dashboard",
   },
-  {
-    title: "AI Content Assistant",
-    description: "AI-assisted content planner with prompt templates, versioning, and collaboration features.",
-    tech: ["Next.js", "Edge Functions", "OpenAI", "Redis", "Zod"],
-    liveUrl: "https://example.com/ai-assistant",
-    sourceUrl: "https://github.com/username/ai-content-assistant",
-  },
+  // {
+  //   title: "AI Content Assistant",
+  //   description: "AI-assisted content planner with prompt templates, versioning, and collaboration features.",
+  //   tech: ["Next.js", "Edge Functions", "OpenAI", "Redis", "Zod"],
+  //   liveUrl: "https://example.com/ai-assistant",
+  //   sourceUrl: "https://github.com/username/ai-content-assistant",
+  // },
 ];
 
 export function FeaturedProjects() {
@@ -90,6 +98,14 @@ export function FeaturedProjects() {
             </motion.div>
           ))}
         </div>
+
+        <motion.div initial={{ y: 12, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.4, ease: "easeOut", delay: 0.08 }} className="mt-10 flex justify-center">
+          <Button asChild size="lg" variant="outline" className="px-6 border-2">
+            <Link href={siteLinks.github} target="_blank" rel="noopener noreferrer" aria-label="View more projects on GitHub">
+              View more
+            </Link>
+          </Button>
+        </motion.div>
       </div>
     </section>
   );
