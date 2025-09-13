@@ -48,13 +48,13 @@ const featuredProjects: Project[] = [
 export function FeaturedProjects() {
   return (
     <section id="projects" className="py-20 bg-muted/30">
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="max-w-6xl 2xl:max-w-7xl mx-auto px-6">
         <motion.div initial={{ y: 12, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.5, ease: "easeOut" }} className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Featured Projects</h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto text-balance">A selection of recent work that highlights my focus on performance, DX, and clean architecture</p>
+          <p className="text-muted-foreground text-lg max-w-3xl mx-auto text-balance">A selection of recent work that highlights my focus on performance, DX, and clean architecture</p>
         </motion.div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 2xl:gap-7 sm:grid-cols-2 lg:grid-cols-3">
           {featuredProjects.map((project, index) => (
             <motion.div key={project.title} initial={{ y: 16, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.55, ease: "easeOut", delay: 0.25 * index }}>
               <Card className="h-full border-foreground/10">
