@@ -56,7 +56,7 @@ export function FeaturedProjects() {
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {featuredProjects.map((project, index) => (
-            <motion.div key={project.title} initial={{ y: 16, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.45, ease: "easeOut", delay: 0.04 * index }}>
+            <motion.div key={project.title} initial={{ y: 16, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.55, ease: "easeOut", delay: 0.25 * index }}>
               <Card className="h-full border-foreground/10">
                 <CardHeader>
                   <CardTitle className="text-xl">{project.title}</CardTitle>
