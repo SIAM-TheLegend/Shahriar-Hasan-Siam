@@ -28,6 +28,7 @@ export function Navbar() {
   const navItems: Array<{ label: string; href: string }> = [
     { label: "Home", href: "#hero" },
     { label: "About", href: "#about" },
+    { label: "Projects", href: "#projects" },
     { label: "Contact", href: "#contact" },
   ];
 
